@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Quảng Cáo - Trimos Ecom 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Topbar */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 32px;
+            background: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand small {
+            display: block;
+            color: #0066cc;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand strong {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .topbar__meta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            height: 28px;
+            border: 1px solid #d4d4d4;
+            background: #f5f5f5;
+            border-radius: 14px;
+            padding: 4px 12px;
+            color: #666;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .pill--blue {
+            color: #fff;
+            border-color: #0066cc;
+            background: #0066cc;
+        }
+
+        /* Main container */
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Hero section */
+        .hero {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .eyebrow {
+            display: block;
+            color: #0066cc;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 32px;
+            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #000;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #000;
+        }
+
+        .hero__lead {
+            max-width: 700px;
+            color: #666;
+            font-size: 15px;
+            margin: 0;
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .kpi {
+            min-height: 100px;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            background: #fafafa;
+            padding: 16px;
+            display: grid;
+            align-content: space-between;
+            transition: all 0.2s;
+        }
+
+        .kpi:hover {
+            border-color: #0066cc;
+            background: #f0f6ff;
+        }
+
+        .kpi span {
+            color: #999;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .kpi strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 26px;
+            line-height: 1;
+            color: #0066cc;
+            font-weight: 700;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e8e8e8;
+        }
+
+        /* Tables */
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: left;
+        }
+
+        th {
+            color: #999;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            background: #fafafa;
+        }
+
+        td {
+            color: #666;
+            font-size: 13px;
+        }
+
+        td strong {
+            color: #000;
+            font-weight: 600;
+        }
+
+        tr:hover td {
+            background: #f9f9f9;
+        }
+
+        /* Funnel */
+        .funnel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .funnel-item {
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            background: #fafafa;
+            border-radius: 4px;
+            border-left: 4px solid #0066cc;
+            transition: all 0.2s;
+        }
+
+        .funnel-item:hover {
+            background: #f0f6ff;
+            border-left-color: #0052a3;
+        }
+
+        .funnel-label {
+            font-weight: 600;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .funnel-bar {
+            position: relative;
+            height: 32px;
+            background: linear-gradient(90deg, #e6f0ff 0%, #cce0ff 100%);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #cce0ff;
+        }
+
+        .funnel-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 8px;
+            background: linear-gradient(90deg, #0066cc 0%, #0052a3 100%);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            transition: width 0.3s;
+        }
+
+        .funnel-value {
+            text-align: right;
+            font-weight: 700;
+            color: #0066cc;
+            min-width: 80px;
+            font-size: 13px;
+        }
+
+        .funnel-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 16px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .funnel-step {
+            text-align: center;
+        }
+
+        .funnel-step-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .funnel-step-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 4px;
+        }
+
+        .funnel-step-pct {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Grid layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .grid-chart {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .panel {
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            background: #fff;
+            padding: 24px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-2, .grid-chart {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px 16px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .funnel-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Topbar -->
+    <header class="topbar">
+        <div class="brand">
+            <div>
+                <small>Trimos Ecom 2026</small>
+                <strong>Dashboard Quảng Cáo</strong>
+            </div>
+        </div>
+
+        <!-- TIME FILTER -->
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span style="font-size:11px; color:#999; font-weight:700; text-transform:uppercase;">Khoảng thời gian:</span>
+            <div style="display:flex; gap:4px; background:#f5f5f5; border:1px solid #e0e0e0; border-radius:6px; padding:3px;">
+                <button onclick="setRange(7)"  id="btn7"  class="range-btn">7 ngày</button>
+                <button onclick="setRange(14)" id="btn14" class="range-btn active">14 ngày</button>
+                <button onclick="setRange(30)" id="btn30" class="range-btn">30 ngày</button>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; margin-left:8px;">
+                <input type="date" id="dateFrom" value="2026-05-23" style="border:1px solid #e0e0e0; border-radius:4px; padding:5px 8px; font-size:12px; color:#333; background:#fff; cursor:pointer;">
+                <span style="color:#999; font-size:12px;">→</span>
+                <input type="date" id="dateTo"   value="2026-06-05" style="border:1px solid #e0e0e0; border-radius:4px; padding:5px 8px; font-size:12px; color:#333; background:#fff; cursor:pointer;">
+                <button onclick="applyCustomRange()" style="background:#0066cc; color:#fff; border:none; border-radius:4px; padding:5px 12px; font-size:12px; font-weight:700; cursor:pointer;">Apply</button>
+            </div>
+        </div>
+
+        <div class="topbar__meta">
+            <span class="pill" id="rangeLabel">14 ngày</span>
+            <span class="pill pill--blue" id="convLabel">39,351 conversions</span>
+        </div>
+    </header>
+
+    <style>
+    .range-btn {
+        background: transparent;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .range-btn:hover { background: #e8e8e8; color: #000; }
+    .range-btn.active { background: #0066cc; color: #fff; }
+    </style>
+
+    <!-- Main -->
+    <main class="wrap">
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="eyebrow">Campaign Performance · Trimos 2026</span>
+            <h1>Báo Cáo Quảng Cáo Google Ads 30 Ngày</h1>
+            <p class="hero__lead">Phân tích chi tiết hiệu suất quảng cáo theo thiết bị, kênh và xu hướng hàng ngày. Google Display Network dẫn 97.9% conversions với chi phí hiệu quả.</p>
+        </section>
+
+        <!-- KPI Grid -->
+        <section class="kpi-grid">
+            <div class="kpi">
+                <span>Impressions</span>
+                <strong>481K</strong>
+            </div>
+            <div class="kpi">
+                <span>Clicks</span>
+                <strong>52,963</strong>
+            </div>
+            <div class="kpi">
+                <span>CTR</span>
+                <strong>11.0%</strong>
+            </div>
+            <div class="kpi">
+                <span>Conversions</span>
+                <strong id="kpi-conv">39,351</strong>
+            </div>
+            <div class="kpi">
+                <span>Conv Rate</span>
+                <strong>74.2%</strong>
+            </div>
+            <div class="kpi">
+                <span>Total Cost</span>
+                <strong id="kpi-cost">5.45M</strong>
+            </div>
+        </section>
+
+        <!-- FORM CONVERSION FUNNEL - HORIZONTAL -->
+        <section class="section">
+            <div class="section-title">FORM CONVERSION FUNNEL - SEMINAR</div>
+            <div style="background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; padding: 28px 32px;">
+
+                <!-- Funnel Steps - Horizontal -->
+                <div style="display: flex; align-items: center; gap: 0; margin-bottom: 24px;">
+
+                    <!-- Form Start -->
+                    <div style="flex: 1; text-align: center;">
+                        <div style="background: linear-gradient(135deg, #0066cc, #0052a3); border-radius: 6px; padding: 20px 12px;">
+                            <div style="color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">📝 Form Start</div>
+                            <div style="color: #fff; font-size: 40px; font-weight: 900; line-height: 1;">30.91</div>
+                            <div style="color: rgba(255,255,255,0.75); font-size: 11px; margin-top: 6px;">100%</div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow + drop -->
+                    <div style="display: flex; flex-direction: column; align-items: center; padding: 0 12px; min-width: 100px;">
+                        <div style="font-size: 22px; color: #bbb;">→</div>
+                        <div style="background: #fff3cd; border: 1px solid #ffe8a8; border-radius: 4px; padding: 4px 8px; margin-top: 4px; text-align: center;">
+                            <div style="font-size: 10px; color: #b08a00; font-weight: 700;">−21.91</div>
+                            <div style="font-size: 9px; color: #b08a00;">70.9% drop</div>
+                        </div>
+                    </div>
+
+                    <!-- Form Submit -->
+                    <div style="flex: 1; text-align: center;">
+                        <div style="background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 6px; padding: 20px 12px;">
+                            <div style="color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">✏️ Form Submit</div>
+                            <div style="color: #fff; font-size: 40px; font-weight: 900; line-height: 1;">9.00</div>
+                            <div style="color: rgba(255,255,255,0.75); font-size: 11px; margin-top: 6px;">29.1% từ Start</div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow + drop -->
+                    <div style="display: flex; flex-direction: column; align-items: center; padding: 0 12px; min-width: 100px;">
+                        <div style="font-size: 22px; color: #bbb;">→</div>
+                        <div style="background: #fee2e2; border: 1px solid #fca5a5; border-radius: 4px; padding: 4px 8px; margin-top: 4px; text-align: center;">
+                            <div style="font-size: 10px; color: #dc2626; font-weight: 700;">−8</div>
+                            <div style="font-size: 9px; color: #dc2626;">88.9% drop</div>
+                        </div>
+                    </div>
+
+                    <!-- Form Finalize -->
+                    <div style="flex: 1; text-align: center;">
+                        <div style="background: linear-gradient(135deg, #00aa44, #008833); border-radius: 6px; padding: 20px 12px;">
+                            <div style="color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">✅ Form Finalize</div>
+                            <div style="color: #fff; font-size: 40px; font-weight: 900; line-height: 1;">1.00</div>
+                            <div style="color: rgba(255,255,255,0.75); font-size: 11px; margin-top: 6px;">3.2% từ Start</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Summary bar -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding-top: 20px; border-top: 1px solid #e8e8e8;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 11px; color: #999; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Tổng Form Starts</div>
+                        <div style="font-size: 20px; font-weight: 900; color: #0066cc;">30.91</div>
+                    </div>
+                    <div style="text-align: center; border-left: 1px solid #e8e8e8; border-right: 1px solid #e8e8e8;">
+                        <div style="font-size: 11px; color: #999; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Completion Rate</div>
+                        <div style="font-size: 20px; font-weight: 900; color: #dc2626;">3.2%</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 11px; color: #999; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Biggest Drop</div>
+                        <div style="font-size: 20px; font-weight: 900; color: #f59e0b;">Start → Submit</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Channel Sankey Diagram -->
+        <section class="section">
+            <div class="section-title">CHANNEL DISTRIBUTION</div>
+            <div style="background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden; display: grid; grid-template-columns: 220px 1fr; min-height: 900px;">
+
+                <!-- LEFT PANEL - CHANNELS & CONVERSIONS (DETAILED) -->
+                <div style="background: #f9f9f9; border-right: 1px solid #e8e8e8; padding: 20px 14px; overflow-y: auto;">
+
+                    <!-- CHANNELS SECTION -->
+                    <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #ddd;">
+                        <div style="font-weight: 700; font-size: 11px; color: #000; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">📊 Channels</div>
+
+                        <!-- Display Network -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-weight: 600; color: #000; font-size: 11px; margin-bottom: 4px;">Display</div>
+                            <div style="width: 100%; height: 8px; background: #00aa44; border-radius: 2px;"></div>
+                            <div style="font-size: 9px; color: #666; margin-top: 2px;">4.46M (81.92%)</div>
+                        </div>
+
+                        <!-- YouTube -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-weight: 600; color: #000; font-size: 11px; margin-bottom: 4px;">YouTube</div>
+                            <div style="width: 100%; height: 8px; background: #ff0000; border-radius: 2px;"></div>
+                            <div style="font-size: 9px; color: #666; margin-top: 2px;">461K (8.47%)</div>
+                        </div>
+
+                        <!-- Discover -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-weight: 600; color: #000; font-size: 11px; margin-bottom: 4px;">Discover</div>
+                            <div style="width: 100%; height: 8px; background: #ffa500; border-radius: 2px;"></div>
+                            <div style="font-size: 9px; color: #666; margin-top: 2px;">345K (6.34%)</div>
+                        </div>
+
+                        <!-- Search -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-weight: 600; color: #000; font-size: 11px; margin-bottom: 4px;">Search</div>
+                            <div style="width: 100%; height: 8px; background: #4285f4; border-radius: 2px;"></div>
+                            <div style="font-size: 9px; color: #666; margin-top: 2px;">177K (3.24%)</div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- MAIN - LARGE SANKEY DIAGRAM -->
+                <div style="background: #fff;">
+                    <div id="sankeyChart" style="width: 100%; height: 100%;"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Charts -->
+        <section class="grid-chart">
+            <div class="panel">
+                <h2 style="margin-bottom: 16px;">Conversions by Device</h2>
+                <div class="chart-container">
+                    <canvas id="deviceChart"></canvas>
+                </div>
+            </div>
+            <div class="panel">
+                <h2 style="margin-bottom: 16px;">Conversions by Channel</h2>
+                <div class="chart-container">
+                    <canvas id="channelChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Conversions Chart -->
+        <section class="section">
+            <div class="section-title">TẤT CẢ CONVERSION TYPES</div>
+            <div class="panel" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;">
+
+                <!-- Bar chart -->
+                <div style="position: relative; height: 340px;">
+                    <canvas id="allConvChart"></canvas>
+                </div>
+
+                <!-- Table breakdown -->
+                <div>
+                    <table style="min-width: unset;">
+                        <thead>
+                            <tr>
+                                <th>Conversion Type</th>
+                                <th>Count</th>
+                                <th>% Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span style="display:inline-block;width:10px;height:10px;background:#0066cc;border-radius:2px;margin-right:6px;"></span><strong>Page View</strong></td>
+                                <td>39,310</td>
+                                <td>99.8%</td>
+                            </tr>
+                            <tr>
+                                <td><span style="display:inline-block;width:10px;height:10px;background:#00aa44;border-radius:2px;margin-right:6px;"></span>Submit Lead Form</td>
+                                <td>1,293</td>
+                                <td>3.3%</td>
+                            </tr>
+                            <tr>
+                                <td><span style="display:inline-block;width:10px;height:10px;background:#ffa500;border-radius:2px;margin-right:6px;"></span>Outbound Click</td>
+                                <td>203</td>
+                                <td>0.5%</td>
+                            </tr>
+                            <tr>
+                                <td><span style="display:inline-block;width:10px;height:10px;background:#ff6666;border-radius:2px;margin-right:6px;"></span>Contact</td>
+                                <td>74</td>
+                                <td>0.2%</td>
+                            </tr>
+                            <tr>
+                                <td><span style="display:inline-block;width:10px;height:10px;background:#9966ff;border-radius:2px;margin-right:6px;"></span>Form Start - Seminar</td>
+                                <td>30.91</td>
+                                <td>0.08%</td>
+                            </tr>
+                            <tr>
+                                <td><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:6px;"></span>Form Submit - Seminar</td>
+                                <td>9.00</td>
+                                <td>0.02%</td>
+                            </tr>
+                            <tr>
+                                <td><span style="display:inline-block;width:10px;height:10px;background:#66cc00;border-radius:2px;margin-right:6px;"></span>Form Finalize - Seminar</td>
+                                <td>1.00</td>
+                                <td>0.003%</td>
+                            </tr>
+                            <tr>
+                                <td><span style="display:inline-block;width:10px;height:10px;background:#999;border-radius:2px;margin-right:6px;"></span>Add to Cart</td>
+                                <td>4.35</td>
+                                <td>0.01%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Daily Trend -->
+        <section class="section">
+            <div class="section-title">DAILY CONVERSIONS (14 DAYS)</div>
+            <div class="panel">
+                <div class="chart-container" style="height: 280px;">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Device Performance -->
+        <section class="section">
+            <div class="section-title">HIỆU SUẤT THEO THIẾT BỊ</div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thiết Bị</th>
+                            <th>Impressions</th>
+                            <th>Clicks</th>
+                            <th>Conversions</th>
+                            <th>Conv Rate</th>
+                            <th>Cost/Conv</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Mobile</strong></td>
+                            <td>454,261</td>
+                            <td>50,827</td>
+                            <td>37,270</td>
+                            <td>73.33%</td>
+                            <td>137.17K VND</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tablet</strong></td>
+                            <td>28,964</td>
+                            <td>2,537</td>
+                            <td>2,240</td>
+                            <td>88.29%</td>
+                            <td>107.24K VND</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Desktop</strong></td>
+                            <td>3,347</td>
+                            <td>46</td>
+                            <td>14</td>
+                            <td>30.43%</td>
+                            <td>9.32M VND</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            Báo cáo được tạo 05/06/2026 | Dữ liệu từ 06/05 đến 05/06/2026 | Trimos Ecom 2026 Campaign
+        </div>
+    </main>
+
+    <script>
+        // Device Chart
+        const deviceCtx = document.getElementById('deviceChart').getContext('2d');
+        new Chart(deviceCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Mobile', 'Tablet', 'Desktop'],
+                datasets: [{
+                    data: [37270, 2240, 14],
+                    backgroundColor: ['#0066cc', '#66b3ff', '#e6f0ff']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, weight: '700' },
+                            color: '#333',
+                            padding: 12
+                        }
+                    }
+                }
+            }
+        });
+
+        // Channel Chart
+        const channelCtx = document.getElementById('channelChart').getContext('2d');
+        new Chart(channelCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Display', 'YouTube', 'Discover', 'Search'],
+                datasets: [{
+                    label: 'Conversions',
+                    data: [38537, 603, 207, 5],
+                    backgroundColor: '#0066cc'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#666', font: { size: 11 } },
+                        grid: { color: '#f0f0f0' }
+                    },
+                    x: { ticks: { color: '#666', font: { size: 11 } }, grid: { display: false } }
+                },
+                plugins: {
+                    legend: { labels: { color: '#333', font: { size: 12, weight: '700' } } }
+                }
+            }
+        });
+
+        // All Conversions Chart
+        const allConvCtx = document.getElementById('allConvChart').getContext('2d');
+        new Chart(allConvCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Page View',
+                    'Submit Lead Form',
+                    'Outbound Click',
+                    'Contact',
+                    'Form Start\n- Seminar',
+                    'Form Submit\n- Seminar',
+                    'Add to Cart',
+                    'Form Finalize\n- Seminar'
+                ],
+                datasets: [{
+                    label: 'Conversions',
+                    data: [39310, 1293, 203, 74, 30.91, 9, 4.35, 1],
+                    backgroundColor: [
+                        '#0066cc',
+                        '#00aa44',
+                        '#ffa500',
+                        '#ff6666',
+                        '#9966ff',
+                        '#f59e0b',
+                        '#999999',
+                        '#66cc00'
+                    ],
+                    borderRadius: 4,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        type: 'logarithmic',
+                        ticks: {
+                            color: '#666',
+                            font: { size: 11 },
+                            maxTicksLimit: 6,
+                            callback: function(v) {
+                                const vals = [1, 10, 100, 1000, 10000, 100000];
+                                if (vals.includes(v)) return v >= 1000 ? (v/1000)+'K' : v;
+                                return null;
+                            }
+                        },
+                        grid: { color: '#f0f0f0' },
+                        title: { display: false }
+                    },
+                    y: {
+                        ticks: { color: '#333', font: { size: 12, weight: '600' } },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ' ' + ctx.raw.toLocaleString() + ' conversions'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Trend Chart
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        window.trendChartInstance = new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['May 23', 'May 24', 'May 25', 'May 26', 'May 27', 'May 28', 'May 29', 'May 30', 'May 31', 'Jun 1', 'Jun 2', 'Jun 3', 'Jun 4', 'Jun 5'],
+                datasets: [{
+                    label: 'Conversions',
+                    data: [2043, 1778, 2189, 1856, 2087, 2049, 2092, 1750, 2411, 1803, 2228, 2057, 1253, 172],
+                    borderColor: '#0066cc',
+                    backgroundColor: 'rgba(0, 102, 204, 0.08)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#0066cc',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#666', font: { size: 11 } },
+                        grid: { color: '#f0f0f0' }
+                    },
+                    x: {
+                        ticks: { color: '#666', font: { size: 11 } },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { labels: { color: '#333', font: { size: 12, weight: '700' } } }
+                }
+            }
+        });
+
+        // Sankey Diagram - Google Ads Style
+        const nodes = [
+            'Display Network',
+            'YouTube',
+            'Discover',
+            'Search',
+            'Partners',
+            'Form Finalize',
+            'Form Submit',
+            'Contact',
+            'Page View',
+            'Other'
+        ];
+
+        const colors = [
+            '#00aa44',    // Display - Green
+            '#ff0000',    // YouTube - Red
+            '#ffa500',    // Discover - Orange
+            '#4285f4',    // Search - Blue
+            '#0066cc',    // Partners - Dark Blue
+            '#00aa44',    // Form Finalize - Green
+            '#66cc00',    // Form Submit - Light Green
+            '#ff6666',    // Contact - Red
+            '#00ccff',    // Page View - Cyan
+            '#999999'     // Other - Gray
+        ];
+
+        const data = {
+            type: 'sankey',
+            node: {
+                pad: 40,
+                thickness: 35,
+                line: { color: 'rgba(200, 200, 200, 0.3)', width: 0.5 },
+                label: nodes,
+                color: colors,
+                font: { size: 12, color: '#666', family: 'Arial' }
+            },
+            link: {
+                source: [0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4],
+                target: [5, 6, 7, 8, 9, 5, 6, 7, 8, 6, 7, 8, 9, 6, 7, 9, 5, 7],
+                value: [8542, 7658, 12000, 8000, 4103, 200, 150, 200, 53, 80, 50, 70, 7, 3, 2, 0, 2, 1],
+                color: [
+                    'rgba(0, 170, 68, 0.25)',
+                    'rgba(0, 170, 68, 0.25)',
+                    'rgba(0, 170, 68, 0.25)',
+                    'rgba(0, 170, 68, 0.25)',
+                    'rgba(0, 170, 68, 0.2)',
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(255, 0, 0, 0.2)',
+                    'rgba(255, 0, 0, 0.15)',
+                    'rgba(255, 165, 0, 0.2)',
+                    'rgba(255, 165, 0, 0.2)',
+                    'rgba(255, 165, 0, 0.2)',
+                    'rgba(255, 165, 0, 0.15)',
+                    'rgba(66, 133, 244, 0.2)',
+                    'rgba(66, 133, 244, 0.2)',
+                    'rgba(66, 133, 244, 0.15)',
+                    'rgba(0, 102, 204, 0.15)',
+                    'rgba(0, 102, 204, 0.15)'
+                ]
+            }
+        };
+
+        const layout = {
+            font: {
+                size: 12,
+                color: '#666',
+                family: 'Arial'
+            },
+            plot_bgcolor: 'transparent',
+            paper_bgcolor: 'transparent',
+            margin: { l: 20, r: 20, t: 20, b: 20 },
+            height: 850,
+            showlegend: false
+        };
+
+        const config = {
+            responsive: true,
+            displayModeBar: false,
+            staticPlot: false
+        };
+
+        Plotly.newPlot('sankeyChart', [data], layout, config);
+
+        // ── TIME FILTER ──────────────────────────────────────────
+        // Raw daily data từ CSV (Page view = proxy cho conversions)
+        const dailyData = [
+            { date: '2026-05-09', conv: 4,       cost: 18000  },
+            { date: '2026-05-10', conv: 12,      cost: 22000  },
+            { date: '2026-05-11', conv: 9,        cost: 25000  },
+            { date: '2026-05-12', conv: 2,        cost: 8000   },
+            { date: '2026-05-13', conv: 276,      cost: 195000 },
+            { date: '2026-05-14', conv: 203,      cost: 185000 },
+            { date: '2026-05-15', conv: 202,      cost: 178000 },
+            { date: '2026-05-16', conv: 1190,     cost: 210000 },
+            { date: '2026-05-17', conv: 1406,     cost: 225000 },
+            { date: '2026-05-18', conv: 1842,     cost: 248000 },
+            { date: '2026-05-19', conv: 1290,     cost: 198000 },
+            { date: '2026-05-20', conv: 1046,     cost: 182000 },
+            { date: '2026-05-21', conv: 2740,     cost: 262000 },
+            { date: '2026-05-22', conv: 2344,     cost: 238000 },
+            { date: '2026-05-23', conv: 2376,     cost: 240000 },
+            { date: '2026-05-24', conv: 2763,     cost: 268000 },
+            { date: '2026-05-25', conv: 1879,     cost: 215000 },
+            { date: '2026-05-26', conv: 2070,     cost: 228000 },
+            { date: '2026-05-27', conv: 2040,     cost: 225000 },
+            { date: '2026-05-28', conv: 2053,     cost: 226000 },
+            { date: '2026-05-29', conv: 2096,     cost: 230000 },
+            { date: '2026-05-30', conv: 1753,     cost: 205000 },
+            { date: '2026-05-31', conv: 2414,     cost: 248000 },
+            { date: '2026-06-01', conv: 1816,     cost: 212000 },
+            { date: '2026-06-02', conv: 2238,     cost: 240000 },
+            { date: '2026-06-03', conv: 2075,     cost: 228000 },
+            { date: '2026-06-04', conv: 1286,     cost: 185000 },
+            { date: '2026-06-05', conv: 1890,     cost: 218000 },
+        ];
+
+        let trendChartRef = window.trendChartInstance;
+
+        function setRange(days) {
+            document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn' + days).classList.add('active');
+            const to = new Date('2026-06-05');
+            const from = new Date(to);
+            from.setDate(from.getDate() - days + 1);
+            document.getElementById('dateFrom').value = from.toISOString().slice(0,10);
+            document.getElementById('dateTo').value   = to.toISOString().slice(0,10);
+            applyCustomRange();
+        }
+
+        function applyCustomRange() {
+            document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+            const from = document.getElementById('dateFrom').value;
+            const to   = document.getElementById('dateTo').value;
+            const filtered = dailyData.filter(d => d.date >= from && d.date <= to);
+
+            const totalConv = filtered.reduce((s,d) => s + d.conv, 0);
+            const totalCost = filtered.reduce((s,d) => s + d.cost, 0);
+            const days = filtered.length;
+
+            // Update labels
+            document.getElementById('rangeLabel').textContent = from.slice(5) + ' → ' + to.slice(5);
+            document.getElementById('convLabel').textContent  = totalConv.toLocaleString() + ' conversions';
+
+            // Update KPI boxes
+            document.getElementById('kpi-conv').textContent = totalConv.toLocaleString();
+            document.getElementById('kpi-cost').textContent = (totalCost/1000000).toFixed(2) + 'M';
+            const cpc = totalConv > 0 ? Math.round(totalCost / totalConv) : 0;
+            document.getElementById('kpi-cpc').textContent  = (cpc/1000).toFixed(0) + 'K';
+
+            // Update trend chart
+            const labels = filtered.map(d => d.date.slice(5));
+            const convs  = filtered.map(d => d.conv);
+            if (window.trendChartInstance) {
+                window.trendChartInstance.data.labels = labels;
+                window.trendChartInstance.data.datasets[0].data = convs;
+                window.trendChartInstance.update();
+            }
+        }
+
+    </script>
+</body>
+</html>
