@@ -1017,7 +1017,7 @@
 
 
         // Sankey 1: Reach → Engagement → Form Start
-        // Sankey: Page View → Conversion Funnel
+        // Sankey: Session Source → Page View → Form Funnel
         const sankey2Data = {
             type: "sankey",
             node: {
@@ -1025,66 +1025,78 @@
                 thickness: 60,
                 line: { color: "#fff", width: 2 },
                 label: [
-                    // Column 1: Page View (Entry Point)
+                    // Column 1: Session Sources
+                    "🔵 Google\n45.2K", "👥 Facebook\n528", "🔗 Direct\n685", "📧 Email\n183", "🆎 AN\n5.2K", "⚫ Others\n2.3K",
+                    // Column 2: Page View
                     "📄 Page View\nSeminar\n52,296",
-                    // Column 2: First Actions
-                    "📝 Form Start\n78", "🎯 Banner Click\n1,637", "⏸️ No Action\n50,581",
-                    // Column 3: Form Progression
-                    "✏️ Form Submit\n27", "❌ Abandoned\n51",
-                    // Column 4: Final Outcome
-                    "✅ Form Finalize\n1", "⛔ Not Completed\n26"
+                    // Column 3: Form Start (by source)
+                    "📝 Form Start\nGoogle (71)", "📝 Form Start\nEmail (3)", "📝 Form Start\nOthers (4)",
+                    // Column 4: Form Submit (by source)
+                    "✏️ Submit\nGoogle (8)", "✏️ Submit\nDirect (12)", "✏️ Submit\nEmail (6)", "✏️ Submit\nOthers (1)",
+                    // Column 5: Final Conversion
+                    "✅ Finalize\nEmail (1)"
                 ],
                 color: [
-                    // Entry Point
-                    "#0066cc",
-                    // First Actions
-                    "#ab47bc", "#ec407a", "#bdbdbd",
-                    // Form Progress
-                    "#fbbf24", "#ffcccc",
-                    // Final
-                    "#10b981", "#ffe0e0"
+                    // Sources
+                    "#0066cc", "#3b5998", "#34a853", "#ea4335", "#ff7043", "#78909c",
+                    // Page View
+                    "#4da6ff",
+                    // Form Start
+                    "#9966ff", "#d9b3ff", "#ccccff",
+                    // Form Submit
+                    "#fbbf24", "#fcd34d", "#fde68a", "#fee2b3",
+                    // Finalize
+                    "#10b981"
                 ]
             },
             link: {
                 source: [
-                    // Page View → First Actions
-                    0, 0, 0,
-                    // Form Start → Form Submit / Abandoned
-                    1, 1,
-                    // Form Submit → Final / Not Completed
-                    3, 3
+                    // Sources → Page View
+                    0, 1, 2, 3, 4, 5,
+                    // Page View → Form Start
+                    6, 6, 6,
+                    // Form Start → Form Submit
+                    7, 7, 8, 8, 9, 9, 10,
+                    // Form Submit → Finalize
+                    11
                 ],
                 target: [
-                    // Page View → First Actions
-                    1, 2, 3,
-                    // Form Start → Form Submit / Abandoned
-                    3, 4,
-                    // Form Submit → Final / Not Completed
-                    5, 6
+                    // Sources → Page View
+                    6, 6, 6, 6, 6, 6,
+                    // Page View → Form Start
+                    7, 8, 9,
+                    // Form Start → Form Submit
+                    11, 11, 12, 13, 11, 14, 15,
+                    // Form Submit → Finalize
+                    16
                 ],
                 value: [
-                    // Page View flows
-                    78, 1637, 50581,
-                    // Form Start flows
-                    27, 51,
-                    // Form Submit flows
-                    1, 26
+                    // Sources to Page View
+                    44171, 528, 611, 174, 5160, 2052,
+                    // Page View to Form Start
+                    71, 3, 4,
+                    // Form Start to Submit (Google 71→8, Email 3→6, Others 4→1, Direct 12 (no form start))
+                    8, 0, 6, 0, 0, 0, 1,
+                    // Submit to Finalize
+                    1
                 ],
                 color: [
+                    // Sources flows
+                    "rgba(0, 102, 204, 0.25)", "rgba(59, 89, 152, 0.25)", "rgba(52, 168, 83, 0.25)", "rgba(234, 67, 53, 0.25)", "rgba(255, 112, 67, 0.25)", "rgba(120, 144, 156, 0.25)",
                     // Page View flows
-                    "rgba(171, 71, 188, 0.35)", "rgba(236, 64, 122, 0.35)", "rgba(189, 189, 189, 0.15)",
-                    // Form Start flows
-                    "rgba(251, 191, 36, 0.5)", "rgba(255, 204, 204, 0.4)",
+                    "rgba(153, 102, 255, 0.4)", "rgba(217, 179, 255, 0.4)", "rgba(204, 204, 255, 0.4)",
                     // Form Submit flows
-                    "rgba(16, 185, 129, 0.85)", "rgba(255, 224, 224, 0.3)"
+                    "rgba(251, 191, 36, 0.5)", "rgba(251, 191, 36, 0.1)", "rgba(253, 224, 77, 0.5)", "rgba(253, 224, 77, 0.1)", "rgba(253, 230, 138, 0.4)", "rgba(253, 230, 138, 0.1)", "rgba(254, 226, 179, 0.4)",
+                    // Finalize flow
+                    "rgba(16, 185, 129, 0.8)"
                 ]
             }
         };
 
         const sankey2Layout = {
             title: { text: "" },
-            font: { size: 13, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
-            margin: { l: 110, r: 110, t: 20, b: 20 },
+            font: { size: 12, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
+            margin: { l: 120, r: 140, t: 20, b: 20 },
             paper_bgcolor: "transparent",
             plot_bgcolor: "transparent",
             hovermode: "closest"
