@@ -1269,21 +1269,27 @@
         window.addEventListener('resize', renderPageViewSvg);
 
         // ── PAGE VIEW FUNNEL SVG (Sources + Funnel) ──────────────────────────────────────────
-        const funnelSources = [
-            { name: 'Google', value: 45200, color: '#4285f4' },
-            { name: 'Facebook', value: 5200, color: '#1877f2' },
-            { name: 'Direct', value: 2300, color: '#10b981' },
-            { name: 'AN (Organic)', value: 685, color: '#8b5cf6' },
-            { name: 'Email', value: 183, color: '#f59e0b' },
-            { name: 'Zalo', value: 528, color: '#0068ff' }
+        // GA4 Session Source Data (from Events_Event_name.csv)
+        const gaSourceData = [
+            { name: 'Google', pageView: 44171, formStart: 71, formSubmit: 8, finalize: 0, color: '#4285f4' },
+            { name: 'AN', pageView: 5160, formStart: 1, formSubmit: 0, finalize: 0, color: '#8b5cf6' },
+            { name: 'Direct', pageView: 611, formStart: 0, formSubmit: 12, finalize: 0, color: '#10b981' },
+            { name: 'Facebook', pageView: 528, formStart: 0, formSubmit: 0, finalize: 0, color: '#1877f2' },
+            { name: 'Email', pageView: 174, formStart: 3, formSubmit: 6, finalize: 1, color: '#f59e0b' },
+            { name: 'Others', pageView: 2400, formStart: 3, formSubmit: 1, finalize: 0, color: '#6b7280' }
         ];
 
+        const totalPageView = gaSourceData.reduce((s, d) => s + d.pageView, 0); // ~53,044
+        const totalFormStart = gaSourceData.reduce((s, d) => s + d.formStart, 0); // 78
+        const totalFormSubmit = gaSourceData.reduce((s, d) => s + d.formSubmit, 0); // 27
+        const totalFinalize = gaSourceData.reduce((s, d) => s + d.finalize, 0); // 1
+
         // Render source cards
-        const sourceCardsHtml = funnelSources.map(ch => `
-            <div style="padding: 10px 8px; background: linear-gradient(135deg, ${ch.color}20, ${ch.color}08); border: 1px solid ${ch.color}40; border-radius: 6px; text-align: center; font-size: 10px;">
-                <div style="font-weight: 700; color: #000; margin-bottom: 4px;">${ch.name}</div>
-                <div style="font-size: 14px; font-weight: 900; color: ${ch.color};">${(ch.value/1000).toFixed(1)}K</div>
-                <div style="color: #666; margin-top: 2px; font-size: 9px;">${((ch.value/52296)*100).toFixed(1)}%</div>
+        const sourceCardsHtml = gaSourceData.map(src => `
+            <div style="padding: 10px 8px; background: linear-gradient(135deg, ${src.color}20, ${src.color}08); border: 1px solid ${src.color}40; border-radius: 6px; text-align: center; font-size: 10px;">
+                <div style="font-weight: 700; color: #000; margin-bottom: 4px;">${src.name}</div>
+                <div style="font-size: 14px; font-weight: 900; color: ${src.color};">${(src.pageView/1000).toFixed(1)}K</div>
+                <div style="color: #666; margin-top: 2px; font-size: 9px;">${((src.pageView/totalPageView)*100).toFixed(1)}%</div>
             </div>
         `).join('');
 
@@ -1322,29 +1328,36 @@
             // Sources → Page View flows
             if (positions[0]) {
                 const pageViewX = positions[0].left - 30;
-                const totalSources = funnelSources.reduce((s, d) => s + d.value, 0);
 
-                funnelSources.forEach((ch, i) => {
+                gaSourceData.forEach((src, i) => {
                     if (!sourcePosY[i]) return;
-                    const w = flowWidth(ch.value, totalSources, 45, 2);
-                    paths += `<path d="${bandPath(200, sourcePosY[i], pageViewX, positions[0].cy, w, w*0.7)}" fill="${ch.color}" opacity="0.35" stroke="none"></path>`;
+                    const w = flowWidth(src.pageView, totalPageView, 50, 2);
+                    paths += `<path d="${bandPath(200, sourcePosY[i], pageViewX, positions[0].cy, w, w*0.6)}" fill="${src.color}" opacity="0.4" stroke="none"></path>`;
                 });
             }
 
-            // Funnel Stage → Stage flows
-            const funnelFlows = [
-                { from: 0, to: 1, color: '#ff006e', opacity: 0.5 },
-                { from: 1, to: 2, color: '#00aa44', opacity: 0.6 },
-                { from: 2, to: 3, color: '#f59e0b', opacity: 0.7 }
-            ];
+            // Page View → Form Start flows
+            if (positions[0] && positions[1]) {
+                gaSourceData.forEach((src, i) => {
+                    if (src.formStart > 0 && sourcePosY[i]) {
+                        const h = bandHeight(src.formStart);
+                        const startY = positions[0].cy - (totalPageView / 2) * 0.001 + (src.pageView / totalPageView) * 150;
+                        paths += `<path d="${bandPath(positions[0].right + 10, startY, positions[1].left - 10, positions[1].cy, h, h)}" fill="#ff006e" opacity="0.5" stroke="none"></path>`;
+                    }
+                });
+            }
 
-            funnelFlows.forEach(flow => {
-                if (positions[flow.from] && positions[flow.to]) {
-                    const fromValue = [52296, 78, 27][flow.from];
-                    const h = bandHeight(fromValue * 0.15);
-                    paths += `<path d="${bandPath(positions[flow.from].right + 10, positions[flow.from].cy, positions[flow.to].left - 10, positions[flow.to].cy, h, h)}" fill="${flow.color}" opacity="${flow.opacity}" stroke="none"></path>`;
-                }
-            });
+            // Form Start → Submit flows
+            if (positions[1] && positions[2]) {
+                const h = bandHeight(totalFormSubmit);
+                paths += `<path d="${bandPath(positions[1].right + 10, positions[1].cy, positions[2].left - 10, positions[2].cy, h, h)}" fill="#00aa44" opacity="0.6" stroke="none"></path>`;
+            }
+
+            // Form Submit → Finalize flows
+            if (positions[2] && positions[3]) {
+                const h = bandHeight(totalFinalize);
+                paths += `<path d="${bandPath(positions[2].right + 10, positions[2].cy, positions[3].left - 10, positions[3].cy, h, h)}" fill="#f59e0b" opacity="0.7" stroke="none"></path>`;
+            }
 
             svg.innerHTML = paths;
         }
