@@ -1013,56 +1013,76 @@
             }
         });
 
-        // Channel → Conversion Type Sankey Diagram
+        // Session Source → Event Type Sankey (GA4 Data)
         const channelSankeyData = {
             type: "sankey",
             node: {
                 pad: 25,
-                thickness: 30,
+                thickness: 28,
                 line: { color: "#ddd", width: 1 },
                 label: [
-                    // Column 1: Channels
-                    "Display Network", "YouTube", "Discover", "Google Search",
-                    // Column 2: Conversion Types
-                    "Page View", "Submit Lead Form", "Outbound Click", "Contact", "Add to Cart", "Form Start", "Form Submit", "Form Finalize"
+                    // Column 1: Session Sources (GA4)
+                    "Google", "Facebook", "Direct", "Email", "AN", "Data N/A", "Not Set", "Other",
+                    // Column 2: Event Types
+                    "Page View Seminar", "Form Start Seminar", "Form Submit Seminar", "Form Finalize", "Banner Click", "Form Start Trimos"
                 ],
                 color: [
-                    // Channels
-                    "#00aa44", "#ff0000", "#ffa500", "#4285f4",
-                    // Conversion Types
-                    "#0066cc", "#00aa44", "#ffa500", "#ff6666", "#999", "#9966ff", "#f59e0b", "#66cc00"
+                    // Session Sources
+                    "#4285f4", "#3b5998", "#34a853", "#ea4335", "#ff7043", "#ffa726", "#ab47bc", "#78909c",
+                    // Event Types
+                    "#0066cc", "#9966ff", "#f59e0b", "#66cc00", "#ec407a", "#00acc1"
                 ]
             },
             link: {
-                // Display Network
+                // Google
                 source: [0, 0, 0, 0, 0,
-                    // YouTube
-                    1, 1, 1, 1,
-                    // Discover
-                    2, 2, 2, 2,
-                    // Google Search
-                    3, 3, 3],
-                target: [4, 5, 6, 7, 8,
-                    4, 5, 7, 6,
-                    4, 5, 7, 6,
-                    4, 5, 8],
-                value: [38498.91, 1079.82, 170.67, 64.53, 4.29,
-                    603.01, 206.00, 5.00, 24.00,
-                    203.54, 3.00, 4.00, 8.00,
-                    4.72, 4.55, 0.06],
+                    // Facebook
+                    1, 1,
+                    // Direct
+                    2, 2, 2,
+                    // Email
+                    3, 3, 3, 3,
+                    // AN
+                    4, 4,
+                    // Data N/A
+                    5, 5,
+                    // Not Set
+                    6, 6, 6,
+                    // Other
+                    7, 7],
+                target: [8, 9, 10, 11, 12,
+                    8, 12,
+                    8, 10, 11,
+                    8, 9, 10, 11,
+                    8, 9,
+                    8, 12,
+                    8, 9, 12,
+                    8, 11],
+                value: [44171, 71, 8, 2, 1302,
+                    528, 0,
+                    611, 12, 1,
+                    174, 3, 6, 1,
+                    5160, 1,
+                    1722, 4,
+                    263, 3, 270,
+                    26, 2],
                 color: [
-                    "rgba(0, 170, 68, 0.3)", "rgba(0, 170, 68, 0.3)", "rgba(0, 170, 68, 0.3)", "rgba(0, 170, 68, 0.3)", "rgba(0, 170, 68, 0.3)",
-                    "rgba(255, 0, 0, 0.3)", "rgba(255, 0, 0, 0.3)", "rgba(255, 0, 0, 0.3)", "rgba(255, 0, 0, 0.3)",
-                    "rgba(255, 165, 0, 0.3)", "rgba(255, 165, 0, 0.3)", "rgba(255, 165, 0, 0.3)", "rgba(255, 165, 0, 0.3)",
-                    "rgba(66, 133, 244, 0.3)", "rgba(66, 133, 244, 0.3)", "rgba(66, 133, 244, 0.3)"
+                    "rgba(66, 133, 244, 0.2)", "rgba(66, 133, 244, 0.2)", "rgba(66, 133, 244, 0.2)", "rgba(66, 133, 244, 0.2)", "rgba(66, 133, 244, 0.2)",
+                    "rgba(59, 89, 152, 0.2)", "rgba(59, 89, 152, 0.2)",
+                    "rgba(52, 168, 83, 0.2)", "rgba(52, 168, 83, 0.2)", "rgba(52, 168, 83, 0.2)",
+                    "rgba(234, 67, 53, 0.2)", "rgba(234, 67, 53, 0.2)", "rgba(234, 67, 53, 0.2)", "rgba(234, 67, 53, 0.2)",
+                    "rgba(255, 112, 67, 0.2)", "rgba(255, 112, 67, 0.2)",
+                    "rgba(255, 167, 38, 0.2)", "rgba(255, 167, 38, 0.2)",
+                    "rgba(171, 71, 188, 0.2)", "rgba(171, 71, 188, 0.2)", "rgba(171, 71, 188, 0.2)",
+                    "rgba(120, 144, 156, 0.2)", "rgba(120, 144, 156, 0.2)"
                 ]
             }
         };
 
         const channelSankeyLayout = {
             title: { text: "" },
-            font: { size: 11, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
-            margin: { l: 150, r: 150, t: 20, b: 20 },
+            font: { size: 10, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
+            margin: { l: 140, r: 180, t: 20, b: 20 },
             paper_bgcolor: "transparent",
             plot_bgcolor: "transparent",
             hovermode: "closest"
