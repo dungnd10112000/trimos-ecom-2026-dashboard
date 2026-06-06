@@ -825,24 +825,16 @@
             </div>
         </section>
 
-        <!-- Customer Journey - Dual Sankey View -->
+        <!-- Customer Journey - Sankey with All Conversions -->
         <section class="section">
-            <div class="section-title">CUSTOMER JOURNEY: IMPRESSIONS → FORM FINALIZE</div>
+            <div class="section-title">CUSTOMER JOURNEY: SESSION SOURCE → CONVERSION TYPES</div>
 
-            <!-- Sankey 1: Awareness to Engagement -->
-            <div style="background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden; margin-bottom: 32px;">
-                <div style="padding: 16px; border-bottom: 1px solid #f0f0f0; background: #fafafa;">
-                    <div style="font-weight: 700; font-size: 12px; color: #0066cc; text-transform: uppercase;">Step 1: Reach → Engagement → Form Start</div>
-                </div>
-                <div id="sankey1Chart" style="width: 100%; height: 400px;"></div>
-            </div>
-
-            <!-- Sankey 2: Form Journey -->
+            <!-- Sankey: Session Source → All Conversions -->
             <div style="background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden;">
                 <div style="padding: 16px; border-bottom: 1px solid #f0f0f0; background: #fafafa;">
-                    <div style="font-weight: 700; font-size: 12px; color: #f59e0b; text-transform: uppercase;">Step 2: Form Conversion (78 users who started form)</div>
+                    <div style="font-weight: 700; font-size: 12px; color: #0066cc; text-transform: uppercase;">Session Source → All Conversion Events (GA4)</div>
                 </div>
-                <div id="sankey2Chart" style="width: 100%; height: 400px;"></div>
+                <div id="sankey2Chart" style="width: 100%; height: 650px;"></div>
             </div>
 
         </section>
@@ -1029,78 +1021,45 @@
 
 
         // Sankey 1: Reach → Engagement → Form Start
-        const sankey1Data = {
-            type: "sankey",
-            node: {
-                pad: 40,
-                thickness: 45,
-                line: { color: "#ddd", width: 1 },
-                label: [
-                    "Google\n45.2K", "AN\n5.2K", "Direct\n685", "Email\n183", "Others\n2.3K",
-                    "Impressions\n52.3K", "Clicks\n52.9K", "Page Views\n52.3K",
-                    "Form Start\n78", "No Action\n52.2K"
-                ],
-                color: [
-                    "#0066cc", "#ff8c00", "#00a854", "#ff4444", "#999",
-                    "#4da6ff", "#4da6ff", "#4da6ff",
-                    "#00cc00", "#ffcccc"
-                ]
-            },
-            link: {
-                source: [0, 1, 2, 3, 4, 5, 6, 7, 7],
-                target: [5, 5, 5, 5, 5, 6, 7, 8, 9],
-                value: [45000, 5000, 700, 200, 2500, 52900, 52300, 78, 52200],
-                color: [
-                    "rgba(0, 102, 204, 0.2)", "rgba(255, 140, 0, 0.2)", "rgba(0, 168, 84, 0.2)", "rgba(255, 68, 68, 0.2)", "rgba(153, 153, 153, 0.2)",
-                    "rgba(77, 166, 255, 0.3)", "rgba(77, 166, 255, 0.3)", "rgba(0, 204, 0, 0.5)", "rgba(255, 204, 204, 0.3)"
-                ]
-            }
-        };
-
-        const sankey1Layout = {
-            title: { text: "" },
-            font: { size: 11, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
-            margin: { l: 100, r: 100, t: 0, b: 0 },
-            paper_bgcolor: "transparent",
-            plot_bgcolor: "transparent",
-            hovermode: "closest"
-        };
-
-        Plotly.newPlot("sankey1Chart", [sankey1Data], sankey1Layout, { responsive: true, displayModeBar: false });
-
-        // Sankey 2: Form Journey (78 form starts only)
+        // Sankey: Session Source → All Conversions
         const sankey2Data = {
             type: "sankey",
             node: {
-                pad: 40,
-                thickness: 45,
-                line: { color: "#ddd", width: 1 },
+                pad: 45,
+                thickness: 50,
+                line: { color: "#ddd", width: 1.5 },
                 label: [
-                    "Google\n71", "Email\n3", "Others\n4",
-                    "Form Started\n78", "Form Submitted\n27", "Form Abandoned\n51",
-                    "Finalized\n1", "Not Completed\n26"
+                    // Session Sources
+                    "Google\n45.2K", "Facebook\n528", "Direct\n685", "Email\n183", "AN\n5.2K", "Others\n2.3K",
+                    // Conversion Types
+                    "Page View\nSeminar", "Banner\nClick", "Form Start\nSeminar", "Form Submit\nSeminar", "Form Finalize", "Form Start\nTrimos"
                 ],
                 color: [
-                    "#0066cc", "#ff4444", "#999",
-                    "#f59e0b", "#fbbf24", "#ffcccc",
-                    "#10b981", "#ffe0e0"
+                    // Sources
+                    "#0066cc", "#3b5998", "#34a853", "#ea4335", "#ff7043", "#78909c",
+                    // Conversions
+                    "#4da6ff", "#ec407a", "#ab47bc", "#fbbf24", "#10b981", "#00acc1"
                 ]
             },
             link: {
-                source: [0, 1, 2, 3, 3, 4, 4],
-                target: [3, 3, 3, 4, 5, 6, 7],
-                value: [71, 3, 4, 27, 51, 1, 26],
+                source: [0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5],
+                target: [6, 7, 8, 9, 11, 6, 7, 6, 9, 11, 6, 8, 9, 10, 6, 8, 6, 7],
+                value: [44171, 1302, 71, 8, 2, 528, 0, 611, 12, 1, 174, 3, 6, 1, 5160, 1, 2052, 4],
                 color: [
-                    "rgba(0, 102, 204, 0.4)", "rgba(255, 68, 68, 0.4)", "rgba(153, 153, 153, 0.4)",
-                    "rgba(245, 158, 11, 0.5)", "rgba(255, 204, 204, 0.4)", "rgba(16, 185, 129, 0.8)", "rgba(255, 224, 224, 0.4)"
+                    "rgba(0, 102, 204, 0.25)", "rgba(236, 64, 122, 0.25)", "rgba(171, 71, 188, 0.35)", "rgba(251, 191, 36, 0.4)", "rgba(0, 172, 193, 0.35)",
+                    "rgba(59, 89, 152, 0.25)", "rgba(236, 64, 122, 0.1)",
+                    "rgba(52, 168, 83, 0.25)", "rgba(251, 191, 36, 0.4)", "rgba(0, 172, 193, 0.3)",
+                    "rgba(234, 67, 53, 0.25)", "rgba(171, 71, 188, 0.35)", "rgba(251, 191, 36, 0.4)", "rgba(16, 185, 129, 0.6)",
+                    "rgba(255, 112, 67, 0.25)", "rgba(171, 71, 188, 0.35)",
+                    "rgba(120, 144, 156, 0.25)", "rgba(236, 64, 122, 0.2)"
                 ]
             }
         };
 
         const sankey2Layout = {
             title: { text: "" },
-            font: { size: 11, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
-            margin: { l: 100, r: 100, t: 0, b: 0 },
+            font: { size: 12, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
+            margin: { l: 120, r: 140, t: 10, b: 10 },
             paper_bgcolor: "transparent",
             plot_bgcolor: "transparent",
             hovermode: "closest"
