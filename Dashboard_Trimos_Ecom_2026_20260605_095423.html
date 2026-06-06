@@ -825,7 +825,15 @@
             </div>
         </section>
 
-        <!-- Detailed Channel Performance -->
+        <!-- Channel Performance Sankey -->
+        <section class="section">
+            <div class="section-title">CHANNEL FLOW: IMPRESSIONS → CLICKS → CONVERSIONS</div>
+            <div style="background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden; min-height: 600px;">
+                <div id="channelSankeyChart" style="width: 100%; height: 600px;"></div>
+            </div>
+        </section>
+
+        <!-- Detailed Channel Performance Table -->
         <section class="section">
             <div class="section-title">CHI TIẾT HIỆU SUẤT CÁC KÊNH (Google Ads)</div>
             <div class="table-wrap">
@@ -1146,6 +1154,53 @@
                 }
             }
         });
+
+        // Channel Sankey Diagram - Impressions → Clicks → Conversions
+        const channelSankeyData = {
+            type: "sankey",
+            node: {
+                pad: 20,
+                thickness: 25,
+                line: { color: "#ddd", width: 1 },
+                label: [
+                    // Column 1: Channels (Impressions)
+                    "Display\n421K impr", "YouTube\n28K impr", "Discover\n30K impr", "Search\n1K impr",
+                    // Column 2: Clicks
+                    "Display\n50K clicks", "YouTube\n1.7K clicks", "Discover\n673 clicks", "Search\n67 clicks",
+                    // Column 3: Conversions
+                    "Display\n38.5K conv", "YouTube\n603 conv", "Discover\n206 conv", "Search\n4 conv"
+                ],
+                color: [
+                    // Channels colors
+                    "#00aa44", "#ff0000", "#ffa500", "#4285f4",
+                    // Clicks colors (same but slightly different shade)
+                    "#00aa44", "#ff0000", "#ffa500", "#4285f4",
+                    // Conversions colors (bright)
+                    "#00dd66", "#ff3333", "#ffb84d", "#5ba3ff"
+                ]
+            },
+            link: {
+                // impressions → clicks
+                source: [0, 1, 2, 3, 4, 5, 6, 7],
+                target: [4, 5, 6, 7, 8, 9, 10, 11],
+                value:  [50483, 1738, 673, 67, 38536, 603, 206, 4],
+                color: [
+                    "rgba(0, 170, 68, 0.3)", "rgba(255, 0, 0, 0.3)", "rgba(255, 165, 0, 0.3)", "rgba(66, 133, 244, 0.3)",
+                    "rgba(0, 221, 102, 0.5)", "rgba(255, 51, 51, 0.5)", "rgba(255, 184, 77, 0.5)", "rgba(91, 163, 255, 0.5)"
+                ]
+            }
+        };
+
+        const channelSankeyLayout = {
+            title: { text: "" },
+            font: { size: 10, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
+            margin: { l: 80, r: 80, t: 10, b: 10 },
+            paper_bgcolor: "transparent",
+            plot_bgcolor: "transparent",
+            hovermode: "closest"
+        };
+
+        Plotly.newPlot("channelSankeyChart", [channelSankeyData], channelSankeyLayout, { responsive: true, displayModeBar: false });
 
         // All Conversions Chart
         const allConvCtx = document.getElementById('allConvChart').getContext('2d');
