@@ -6,6 +6,7 @@
     <title>Dashboard Quảng Cáo - Trimos Ecom 2026</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <style>
         * {
             margin: 0;
@@ -1035,82 +1036,67 @@
             }
         });
 
-        // Simplified Customer Journey - Clean & Clear
-        const channelSankeyData = {
-            type: "sankey",
-            node: {
-                pad: 50,
-                thickness: 50,
-                line: { color: "#fff", width: 2 },
-                label: [
-                    // Column 1: Main Sources (TOP 5 ONLY)
-                    "Google\n45.2K", "AN\n5.2K", "Direct\n685", "Email\n183", "Others\n2.3K",
-                    // Column 2: Page Views by Source
-                    "Page View\nGoogle", "Page View\nAN", "Page View\nDirect", "Page View\nEmail", "Page View\nOthers",
-                    // Column 3: Form Start
-                    "Form Start\nGoogle", "Form Start\nEmail", "Form Start\nOthers",
-                    // Column 4: Final Conversion
-                    "✓ Finalize"
-                ],
-                color: [
-                    // Sources - Bold colors
-                    "#0066cc", "#ff8c00", "#00a854", "#ff4444", "#999999",
-                    // Page Views - Light blues/pastels
-                    "#80b3ff", "#ffc299", "#80d4a2", "#ff9999", "#cccccc",
-                    // Form Start - Bright colors
-                    "#0052a3", "#e6330b", "#00804d",
-                    // Finalize - Bright green
-                    "#10b981"
-                ],
-                x: [0.05, 0.15, 0.25, 0.35, 0.45, 0.35, 0.45, 0.55, 0.65, 0.75, 0.65, 0.75, 0.85, 0.95],
-                y: [0.1, 0.3, 0.5, 0.7, 0.9, 0.1, 0.3, 0.5, 0.7, 0.9, 0.2, 0.6, 0.8, 0.5]
-            },
-            link: {
-                source: [
-                    // Sources → Page Views
-                    0, 1, 2, 3, 4,
-                    // Page Views → Form Start
-                    5, 7, 9,
-                    // Form Start → Finalize
-                    10, 11, 12
-                ],
-                target: [
-                    // Sources → Page Views
-                    5, 6, 7, 8, 9,
-                    // Page Views → Form Start
-                    10, 11, 12,
-                    // Form Start → Finalize
-                    13, 13, 13
-                ],
-                value: [
-                    // Page views by source
-                    44171, 5160, 611, 174, 2290,
-                    // Form starts
-                    71, 3, 4,
-                    // Finalizations
-                    0, 1, 0
-                ],
-                color: [
-                    // Sources → Page Views (soft colors)
-                    "rgba(0, 102, 204, 0.3)", "rgba(255, 140, 0, 0.3)", "rgba(0, 168, 84, 0.3)", "rgba(255, 68, 68, 0.3)", "rgba(153, 153, 153, 0.3)",
-                    // Page Views → Form Start (medium transparency)
-                    "rgba(0, 102, 204, 0.5)", "rgba(255, 68, 68, 0.5)", "rgba(153, 153, 153, 0.5)",
-                    // Form Start → Finalize (strong green)
-                    "rgba(16, 185, 129, 0.7)", "rgba(16, 185, 129, 0.7)", "rgba(16, 185, 129, 0.7)"
-                ]
-            }
-        };
+        // Google Charts Sankey - Multi-level Customer Journey
+        google.charts.load('current', {'packages':['sankey']});
+        google.charts.setOnLoadCallback(drawSankey);
 
-        const channelSankeyLayout = {
-            title: { text: "" },
-            font: { size: 13, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
-            margin: { l: 100, r: 100, t: 20, b: 20 },
-            paper_bgcolor: "transparent",
-            plot_bgcolor: "transparent",
-            hovermode: "closest"
-        };
+        function drawSankey() {
+            var data = google.visualization.arrayToDataTable([
+                [ 'From', 'To', 'Weight', { role: 'style' } ],
 
-        Plotly.newPlot("channelSankeyChart", [channelSankeyData], channelSankeyLayout, { responsive: true, displayModeBar: false });
+                // Level 1: Sources → Page Views
+                [ 'Google (45K)', 'Page View', 44171, '#0066cc' ],
+                [ 'AN (5K)', 'Page View', 5160, '#ff8c00' ],
+                [ 'Direct (685)', 'Page View', 611, '#00a854' ],
+                [ 'Email (183)', 'Page View', 174, '#ff4444' ],
+                [ 'Others (2K)', 'Page View', 290, '#999999' ],
+
+                // Level 2: Page Views → Form Start
+                [ 'Page View', 'Form Start', 78, '#9966ff' ],
+                [ 'Page View', 'No Action', 52218, '#e8e8e8' ],
+
+                // Level 3: Form Start → Form Submit
+                [ 'Form Start', 'Form Submit', 27, '#f59e0b' ],
+                [ 'Form Start', 'Form Abandoned', 51, '#ffcccc' ],
+
+                // Level 4: Form Submit → Finalize
+                [ 'Form Submit', '✓ Finalize', 1, '#10b981' ],
+                [ 'Form Submit', 'Not Completed', 26, '#ffebee' ]
+            ]);
+
+            var options = {
+                title: '',
+                font: { fontSize: 12, color: '#333', bold: true },
+                tooltip: {
+                    textStyle: {
+                        fontSize: 12,
+                        color: '#333',
+                        bold: true
+                    },
+                    isHtml: true
+                },
+                sankey: {
+                    node: {
+                        fillColor: '#4285f4',
+                        label: { fontSize: 12, bold: true, color: '#333' }
+                    },
+                    link: {
+                        color: {
+                            fill: '#d3d3d3',
+                            stroke: '#999',
+                            strokeOpacity: 0.2
+                        },
+                        strokeOpacity: 0.3
+                    },
+                    iterations: 32
+                }
+            };
+
+            var sankey = new google.visualization.Sankey(
+                document.getElementById('channelSankeyChart')
+            );
+            sankey.draw(data, options);
+        }
 
         // All Conversions Chart
         const allConvCtx = document.getElementById('allConvChart').getContext('2d');
