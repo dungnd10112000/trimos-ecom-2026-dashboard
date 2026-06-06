@@ -6,7 +6,6 @@
     <title>Dashboard Quảng Cáo - Trimos Ecom 2026</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <style>
         * {
             margin: 0;
@@ -826,33 +825,114 @@
             </div>
         </section>
 
-        <!-- Customer Journey Visualization (Sankey) -->
+        <!-- Conversion Funnel - Simple & Clear -->
         <section class="section">
-            <div class="section-title">CUSTOMER JOURNEY VISUALIZATION</div>
-            <div style="background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden;">
-                <!-- KPI Row -->
-                <div style="display: flex; justify-content: space-around; padding: 20px; border-bottom: 1px solid #f0f0f0; background: #fafafa;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 11px; color: #999; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Reach</div>
-                        <div style="font-size: 28px; font-weight: 900; color: #0066cc;">481K</div>
-                        <div style="font-size: 10px; color: #666; margin-top: 4px;">Impressions</div>
+            <div class="section-title">CONVERSION FUNNEL ANALYSIS</div>
+            <div style="background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden; padding: 32px;">
+
+                <!-- Funnel Stages -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+
+                    <!-- Stage 1 -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="font-weight: 700; font-size: 13px;">1. Impressions (Reach)</div>
+                            <div style="font-size: 18px; font-weight: 900; color: #0066cc;">481,293</div>
+                        </div>
+                        <div style="width: 100%; height: 40px; background: #0066cc; border-radius: 4px;"></div>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 11px; color: #999; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Engagement</div>
-                        <div style="font-size: 28px; font-weight: 900; color: #00aa44;">52.3K</div>
-                        <div style="font-size: 10px; color: #666; margin-top: 4px;">Page Views</div>
+
+                    <!-- Drop indicator -->
+                    <div style="text-align: center; color: #dc2626; font-weight: 700; font-size: 12px;">
+                        ↓ 89.1% Drop (428K not clicking)
                     </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 11px; color: #999; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Conversion</div>
-                        <div style="font-size: 28px; font-weight: 900; color: #00cc00;">0.002%</div>
-                        <div style="font-size: 10px; color: #666; margin-top: 4px;">Form Finalize</div>
+
+                    <!-- Stage 2 -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="font-weight: 700; font-size: 13px;">2. Clicks (Interest)</div>
+                            <div style="font-size: 18px; font-weight: 900; color: #0066cc;">52,963</div>
+                        </div>
+                        <div style="width: 11%; height: 40px; background: #0066cc; border-radius: 4px;"></div>
+                    </div>
+
+                    <!-- Drop indicator -->
+                    <div style="text-align: center; color: #dc2626; font-weight: 700; font-size: 12px;">
+                        ↓ 1.3% Drop (667 not viewing page)
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="font-weight: 700; font-size: 13px;">3. Page Views (Engagement)</div>
+                            <div style="font-size: 18px; font-weight: 900; color: #00aa44;">52,296</div>
+                        </div>
+                        <div style="width: 10.9%; height: 40px; background: #00aa44; border-radius: 4px;"></div>
+                    </div>
+
+                    <!-- Drop indicator -->
+                    <div style="text-align: center; color: #dc2626; font-weight: 700; font-size: 12px;">
+                        ↓ 99.85% Drop ⚠️ BIGGEST ISSUE (52.2K not starting form)
+                    </div>
+
+                    <!-- Stage 4 -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="font-weight: 700; font-size: 13px;">4. Form Start (Intent)</div>
+                            <div style="font-size: 18px; font-weight: 900; color: #f59e0b;">78</div>
+                        </div>
+                        <div style="width: 0.016%; height: 40px; background: #f59e0b; border-radius: 4px;"></div>
+                    </div>
+
+                    <!-- Drop indicator -->
+                    <div style="text-align: center; color: #dc2626; font-weight: 700; font-size: 12px;">
+                        ↓ 65.4% Drop (51 abandon form)
+                    </div>
+
+                    <!-- Stage 5 -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="font-weight: 700; font-size: 13px;">5. Form Submit (Confirmation)</div>
+                            <div style="font-size: 18px; font-weight: 900; color: #f59e0b;">27</div>
+                        </div>
+                        <div style="width: 0.006%; height: 40px; background: #f59e0b; border-radius: 4px;"></div>
+                    </div>
+
+                    <!-- Drop indicator -->
+                    <div style="text-align: center; color: #dc2626; font-weight: 700; font-size: 12px;">
+                        ↓ 96.3% Drop (26 don't complete)
+                    </div>
+
+                    <!-- Stage 6 -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="font-weight: 700; font-size: 13px;">6. ✅ Form Finalize (Conversion)</div>
+                            <div style="font-size: 18px; font-weight: 900; color: #10b981;">1</div>
+                        </div>
+                        <div style="width: 0.0002%; height: 40px; background: #10b981; border-radius: 4px;"></div>
+                    </div>
+
+                </div>
+
+                <!-- Summary Stats -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; padding-top: 24px; border-top: 2px solid #e8e8e8;">
+                    <div style="background: #f0f7ff; padding: 16px; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 11px; color: #0066cc; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Overall Conversion</div>
+                        <div style="font-size: 24px; font-weight: 900; color: #0066cc;">0.002%</div>
+                        <div style="font-size: 10px; color: #666; margin-top: 4px;">1 conversion per 481K impressions</div>
+                    </div>
+                    <div style="background: #fff0f0; padding: 16px; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 11px; color: #dc2626; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Biggest Bottleneck</div>
+                        <div style="font-size: 24px; font-weight: 900; color: #dc2626;">Page View → Form</div>
+                        <div style="font-size: 10px; color: #666; margin-top: 4px;">99.85% don't initiate form</div>
+                    </div>
+                    <div style="background: #f0fff4; padding: 16px; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 11px; color: #10b981; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Email Performance</div>
+                        <div style="font-size: 24px; font-weight: 900; color: #10b981;">0.55%</div>
+                        <div style="font-size: 10px; color: #666; margin-top: 4px;">1 conversion per 183 page views (Best)</div>
                     </div>
                 </div>
 
-                <!-- Sankey Chart -->
-                <div style="min-height: 700px;">
-                    <div id="channelSankeyChart" style="width: 100%; height: 700px;"></div>
-                </div>
             </div>
         </section>
 
@@ -1036,67 +1116,6 @@
             }
         });
 
-        // Google Charts Sankey - Multi-level Customer Journey
-        google.charts.load('current', {'packages':['sankey']});
-        google.charts.setOnLoadCallback(drawSankey);
-
-        function drawSankey() {
-            var data = google.visualization.arrayToDataTable([
-                [ 'From', 'To', 'Weight', { role: 'style' } ],
-
-                // Level 1: Sources → Page Views
-                [ 'Google (45K)', 'Page View', 44171, '#0066cc' ],
-                [ 'AN (5K)', 'Page View', 5160, '#ff8c00' ],
-                [ 'Direct (685)', 'Page View', 611, '#00a854' ],
-                [ 'Email (183)', 'Page View', 174, '#ff4444' ],
-                [ 'Others (2K)', 'Page View', 290, '#999999' ],
-
-                // Level 2: Page Views → Form Start
-                [ 'Page View', 'Form Start', 78, '#9966ff' ],
-                [ 'Page View', 'No Action', 52218, '#e8e8e8' ],
-
-                // Level 3: Form Start → Form Submit
-                [ 'Form Start', 'Form Submit', 27, '#f59e0b' ],
-                [ 'Form Start', 'Form Abandoned', 51, '#ffcccc' ],
-
-                // Level 4: Form Submit → Finalize
-                [ 'Form Submit', '✓ Finalize', 1, '#10b981' ],
-                [ 'Form Submit', 'Not Completed', 26, '#ffebee' ]
-            ]);
-
-            var options = {
-                title: '',
-                font: { fontSize: 12, color: '#333', bold: true },
-                tooltip: {
-                    textStyle: {
-                        fontSize: 12,
-                        color: '#333',
-                        bold: true
-                    },
-                    isHtml: true
-                },
-                sankey: {
-                    node: {
-                        fillColor: '#4285f4',
-                        label: { fontSize: 12, bold: true, color: '#333' }
-                    },
-                    link: {
-                        color: {
-                            fill: '#d3d3d3',
-                            stroke: '#999',
-                            strokeOpacity: 0.2
-                        },
-                        strokeOpacity: 0.3
-                    },
-                    iterations: 32
-                }
-            };
-
-            var sankey = new google.visualization.Sankey(
-                document.getElementById('channelSankeyChart')
-            );
-            sankey.draw(data, options);
-        }
 
         // All Conversions Chart
         const allConvCtx = document.getElementById('allConvChart').getContext('2d');
