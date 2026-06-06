@@ -825,114 +825,12 @@
             </div>
         </section>
 
-        <!-- Customer Journey - Conversion Funnel Table -->
+        <!-- Customer Journey - Sankey Funnel -->
         <section class="section">
-            <div class="section-title">CUSTOMER JOURNEY: PAGE VIEW → CONVERSIONS</div>
+            <div class="section-title">CUSTOMER JOURNEY: PAGE VIEW → ALL CONVERSIONS</div>
 
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Stage</th>
-                            <th>Conversion Event</th>
-                            <th>Count</th>
-                            <th>% of Parent</th>
-                            <th>% of Total</th>
-                            <th>Drop-off</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Entry Point -->
-                        <tr style="background: #f0f7ff; font-weight: 700;">
-                            <td><strong>ENTRY</strong></td>
-                            <td><strong>📄 Page View (Seminar)</strong></td>
-                            <td><strong>52,296</strong></td>
-                            <td><strong>—</strong></td>
-                            <td><strong>100%</strong></td>
-                            <td><strong>—</strong></td>
-                        </tr>
-
-                        <!-- First Actions from Page View -->
-                        <tr>
-                            <td style="padding-left: 24px;">↳ Action 1</td>
-                            <td><strong>📝 Form Start (Seminar)</strong></td>
-                            <td>78</td>
-                            <td>0.15%</td>
-                            <td>0.15%</td>
-                            <td style="color: #dc2626; font-weight: 700;">−52,218 (99.85%)</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 24px;">↳ Action 2</td>
-                            <td><strong>🎯 Banner Click</strong></td>
-                            <td>1,637</td>
-                            <td>3.13%</td>
-                            <td>3.13%</td>
-                            <td style="color: #f59e0b; font-weight: 700;">−50,659 (96.87%)</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 24px;">↳ No Action</td>
-                            <td><strong>⏸️ No Conversion</strong></td>
-                            <td>50,581</td>
-                            <td>96.72%</td>
-                            <td>96.72%</td>
-                            <td style="color: #999; font-weight: 700;">—</td>
-                        </tr>
-
-                        <!-- Form Start Journey -->
-                        <tr style="background: #faf3ff;">
-                            <td colspan="6"><strong style="margin-left: 24px;">┗━ From 78 Form Starts:</strong></td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 48px;">↳ Stage 2</td>
-                            <td><strong>✏️ Form Submit</strong></td>
-                            <td>27</td>
-                            <td>34.62%</td>
-                            <td>0.052%</td>
-                            <td style="color: #dc2626; font-weight: 700;">−51 (65.38%)</td>
-                        </tr>
-                        <tr style="background: #fffbf0;">
-                            <td colspan="6"><strong style="margin-left: 72px;">┗━ From 27 Form Submits:</strong></td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 96px;">↳ Stage 3</td>
-                            <td><strong>✅ Form Finalize</strong></td>
-                            <td>1</td>
-                            <td>3.70%</td>
-                            <td>0.002%</td>
-                            <td style="color: #dc2626; font-weight: 700;">−26 (96.30%)</td>
-                        </tr>
-                    </tbody>
-
-                    <!-- Summary Row -->
-                    <tfoot>
-                        <tr style="background: #f0f0f0; font-weight: 700;">
-                            <td colspan="2">FINAL CONVERSION RATE</td>
-                            <td>1</td>
-                            <td>0.0019%</td>
-                            <td>—</td>
-                            <td style="color: #dc2626;">52,295 drop (99.998%)</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-
-            <!-- Key Metrics -->
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;">
-                <div style="background: #f0f7ff; padding: 16px; border-radius: 6px; text-align: center;">
-                    <div style="font-size: 11px; color: #0066cc; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Biggest Bottleneck</div>
-                    <div style="font-size: 16px; font-weight: 900; color: #0066cc;">Page View → Form</div>
-                    <div style="font-size: 10px; color: #666; margin-top: 4px;">99.85% drop (52.2K lost)</div>
-                </div>
-                <div style="background: #fef3f0; padding: 16px; border-radius: 6px; text-align: center;">
-                    <div style="font-size: 11px; color: #f59e0b; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Form Drop-off</div>
-                    <div style="font-size: 16px; font-weight: 900; color: #f59e0b;">65.38% Abandon</div>
-                    <div style="font-size: 10px; color: #666; margin-top: 4px;">51 out of 78 start</div>
-                </div>
-                <div style="background: #f0fff4; padding: 16px; border-radius: 6px; text-align: center;">
-                    <div style="font-size: 11px; color: #10b981; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Final Rate</div>
-                    <div style="font-size: 16px; font-weight: 900; color: #10b981;">0.002%</div>
-                    <div style="font-size: 10px; color: #666; margin-top: 4px;">1 conversion per 52K views</div>
-                </div>
+            <div style="background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden;">
+                <div id="sankey2Chart" style="width: 100%; height: 700px;"></div>
             </div>
 
         </section>
@@ -1119,29 +1017,29 @@
 
 
         // Sankey 1: Reach → Engagement → Form Start
-        // Sankey: Session Source → All Conversions
+        // Sankey: Page View → Conversion Funnel
         const sankey2Data = {
             type: "sankey",
             node: {
                 pad: 50,
-                thickness: 55,
+                thickness: 60,
                 line: { color: "#fff", width: 2 },
                 label: [
-                    // Column 1: Page View (entry point)
+                    // Column 1: Page View (Entry Point)
                     "📄 Page View\nSeminar\n52,296",
-                    // Column 2: First Action
+                    // Column 2: First Actions
                     "📝 Form Start\n78", "🎯 Banner Click\n1,637", "⏸️ No Action\n50,581",
-                    // Column 3: Form Submit
+                    // Column 3: Form Progression
                     "✏️ Form Submit\n27", "❌ Abandoned\n51",
-                    // Column 4: Final Conversion
-                    "✅ Finalize\n1", "⛔ Not Completed\n26"
+                    // Column 4: Final Outcome
+                    "✅ Form Finalize\n1", "⛔ Not Completed\n26"
                 ],
                 color: [
-                    // Page View
+                    // Entry Point
                     "#0066cc",
                     // First Actions
                     "#ab47bc", "#ec407a", "#bdbdbd",
-                    // Form Submit
+                    // Form Progress
                     "#fbbf24", "#ffcccc",
                     // Final
                     "#10b981", "#ffe0e0"
@@ -1149,7 +1047,7 @@
             },
             link: {
                 source: [
-                    // Page View → First Action
+                    // Page View → First Actions
                     0, 0, 0,
                     // Form Start → Form Submit / Abandoned
                     1, 1,
@@ -1157,7 +1055,7 @@
                     3, 3
                 ],
                 target: [
-                    // Page View → First Action
+                    // Page View → First Actions
                     1, 2, 3,
                     // Form Start → Form Submit / Abandoned
                     3, 4,
@@ -1173,12 +1071,12 @@
                     1, 26
                 ],
                 color: [
-                    // Page View flows (light)
-                    "rgba(171, 71, 188, 0.4)", "rgba(236, 64, 122, 0.4)", "rgba(189, 189, 189, 0.2)",
-                    // Form Start flows (medium)
+                    // Page View flows
+                    "rgba(171, 71, 188, 0.35)", "rgba(236, 64, 122, 0.35)", "rgba(189, 189, 189, 0.15)",
+                    // Form Start flows
                     "rgba(251, 191, 36, 0.5)", "rgba(255, 204, 204, 0.4)",
-                    // Form Submit flows (strong)
-                    "rgba(16, 185, 129, 0.8)", "rgba(255, 224, 224, 0.3)"
+                    // Form Submit flows
+                    "rgba(16, 185, 129, 0.85)", "rgba(255, 224, 224, 0.3)"
                 ]
             }
         };
@@ -1186,7 +1084,7 @@
         const sankey2Layout = {
             title: { text: "" },
             font: { size: 13, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
-            margin: { l: 100, r: 100, t: 10, b: 10 },
+            margin: { l: 110, r: 110, t: 20, b: 20 },
             paper_bgcolor: "transparent",
             plot_bgcolor: "transparent",
             hovermode: "closest"
