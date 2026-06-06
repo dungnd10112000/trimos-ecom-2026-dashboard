@@ -1025,41 +1025,70 @@
         const sankey2Data = {
             type: "sankey",
             node: {
-                pad: 45,
-                thickness: 50,
-                line: { color: "#ddd", width: 1.5 },
+                pad: 50,
+                thickness: 55,
+                line: { color: "#fff", width: 2 },
                 label: [
-                    // Session Sources
-                    "Google\n45.2K", "Facebook\n528", "Direct\n685", "Email\n183", "AN\n5.2K", "Others\n2.3K",
-                    // Conversion Types
-                    "Page View\nSeminar", "Banner\nClick", "Form Start\nSeminar", "Form Submit\nSeminar", "Form Finalize", "Form Start\nTrimos"
+                    // Column 1: Page View (entry point)
+                    "📄 Page View\nSeminar\n52,296",
+                    // Column 2: First Action
+                    "📝 Form Start\n78", "🎯 Banner Click\n1,637", "⏸️ No Action\n50,581",
+                    // Column 3: Form Submit
+                    "✏️ Form Submit\n27", "❌ Abandoned\n51",
+                    // Column 4: Final Conversion
+                    "✅ Finalize\n1", "⛔ Not Completed\n26"
                 ],
                 color: [
-                    // Sources
-                    "#0066cc", "#3b5998", "#34a853", "#ea4335", "#ff7043", "#78909c",
-                    // Conversions
-                    "#4da6ff", "#ec407a", "#ab47bc", "#fbbf24", "#10b981", "#00acc1"
+                    // Page View
+                    "#0066cc",
+                    // First Actions
+                    "#ab47bc", "#ec407a", "#bdbdbd",
+                    // Form Submit
+                    "#fbbf24", "#ffcccc",
+                    // Final
+                    "#10b981", "#ffe0e0"
                 ]
             },
             link: {
-                source: [0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5],
-                target: [6, 7, 8, 9, 11, 6, 7, 6, 9, 11, 6, 8, 9, 10, 6, 8, 6, 7],
-                value: [44171, 1302, 71, 8, 2, 528, 0, 611, 12, 1, 174, 3, 6, 1, 5160, 1, 2052, 4],
+                source: [
+                    // Page View → First Action
+                    0, 0, 0,
+                    // Form Start → Form Submit / Abandoned
+                    1, 1,
+                    // Form Submit → Final / Not Completed
+                    3, 3
+                ],
+                target: [
+                    // Page View → First Action
+                    1, 2, 3,
+                    // Form Start → Form Submit / Abandoned
+                    3, 4,
+                    // Form Submit → Final / Not Completed
+                    5, 6
+                ],
+                value: [
+                    // Page View flows
+                    78, 1637, 50581,
+                    // Form Start flows
+                    27, 51,
+                    // Form Submit flows
+                    1, 26
+                ],
                 color: [
-                    "rgba(0, 102, 204, 0.25)", "rgba(236, 64, 122, 0.25)", "rgba(171, 71, 188, 0.35)", "rgba(251, 191, 36, 0.4)", "rgba(0, 172, 193, 0.35)",
-                    "rgba(59, 89, 152, 0.25)", "rgba(236, 64, 122, 0.1)",
-                    "rgba(52, 168, 83, 0.25)", "rgba(251, 191, 36, 0.4)", "rgba(0, 172, 193, 0.3)",
-                    "rgba(234, 67, 53, 0.25)", "rgba(171, 71, 188, 0.35)", "rgba(251, 191, 36, 0.4)", "rgba(16, 185, 129, 0.6)",
-                    "rgba(255, 112, 67, 0.25)", "rgba(171, 71, 188, 0.35)",
-                    "rgba(120, 144, 156, 0.25)", "rgba(236, 64, 122, 0.2)"
+                    // Page View flows (light)
+                    "rgba(171, 71, 188, 0.4)", "rgba(236, 64, 122, 0.4)", "rgba(189, 189, 189, 0.2)",
+                    // Form Start flows (medium)
+                    "rgba(251, 191, 36, 0.5)", "rgba(255, 204, 204, 0.4)",
+                    // Form Submit flows (strong)
+                    "rgba(16, 185, 129, 0.8)", "rgba(255, 224, 224, 0.3)"
                 ]
             }
         };
 
         const sankey2Layout = {
             title: { text: "" },
-            font: { size: 12, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
-            margin: { l: 120, r: 140, t: 10, b: 10 },
+            font: { size: 13, family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#333", weight: "bold" },
+            margin: { l: 100, r: 100, t: 10, b: 10 },
             paper_bgcolor: "transparent",
             plot_bgcolor: "transparent",
             hovermode: "closest"
