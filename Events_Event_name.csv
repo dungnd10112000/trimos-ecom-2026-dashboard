@@ -1,0 +1,39 @@
+# ----------------------------------------
+# Events: Event name
+# Account: Tecotec Group
+# Property: tecostore.vn GA4
+# ----------------------------------------
+# 
+# All Users
+# Start date: 20260509
+# End date: 20260605
+Event name,Session source,Event count,Total users,Event count per active user,Total revenue
+page_view_seminar,google,44171,26643,1.6578838719363436,0
+page_view_seminar,an,5160,3520,1.4659090909090908,0
+page_view_seminar,(data not available),1722,713,2.415147265077139,0
+trimos_banner_click,google,1302,537,2.4245810055865924,0
+page_view_seminar,(direct),611,531,1.1506591337099812,0
+page_view_seminar,fb,528,508,1.0393700787401574,0
+trimos_banner_click,(not set),270,85,3.176470588235294,0
+page_view_seminar,(not set),263,181,1.4530386740331491,0
+page_view_seminar,email,174,114,1.5263157894736843,0
+form_start_seminar,google,71,64,1.109375,0
+trimos_banner_click,(direct),61,36,1.6944444444444444,0
+page_view_seminar,th,45,44,1.0227272727272727,0
+form_submit_seminar,(direct),12,12,1,0
+form_submit_seminar,google,8,6,1.3333333333333333,0
+page_view_seminar,tecotec.store,8,1,8,0
+page_view_seminar,m.facebook.com,7,7,1,0
+form_submit_seminar,email,6,6,1,0
+trimos_banner_click,(data not available),4,2,2,0
+form_start_seminar,(not set),3,3,1,0
+form_start_seminar,email,3,3,1,0
+form_start_trimos_seminar,google,2,2,1,0
+page_view_seminar,email_signature,2,2,1,0
+page_view_seminar,l.facebook.com,2,1,2,0
+page_view_seminar,zalo,2,2,1,0
+form_finalize_seminar,email,1,1,1,0
+form_start_seminar,an,1,1,1,0
+form_start_trimos_seminar,(direct),1,1,1,0
+form_submit_seminar,(not set),1,1,1,0
+page_view_seminar,gemini.google.com,1,1,1,0

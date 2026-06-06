@@ -1,0 +1,88 @@
+table Ads_Conversions
+	lineageTag: d3e4f5a6-0001-0001-0001-000000000001
+
+	measure 'Ads Conv Total' = SUM('Ads_Conversions'[Conversions])
+		formatString: #,0.0
+		lineageTag: d3e4f5a6-0010-0010-0010-000000000010
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d3e4f5a6-0101-0101-0101-000000000101
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 064f5f00-4e21-4954-ba20-8ff0bf783c75
+			defaultHierarchy: LocalDateTable_ddb3f5c9-91c9-4867-bc50-ca2fc670e1be.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Conversion_Action
+		dataType: string
+		lineageTag: d3e4f5a6-0102-0102-0102-000000000102
+		summarizeBy: none
+		sourceColumn: Conversion_Action
+
+		annotation SummarizationSetBy = Automatic
+
+	column Device
+		dataType: string
+		lineageTag: d3e4f5a6-0103-0103-0103-000000000103
+		summarizeBy: none
+		sourceColumn: Device
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conversions
+		dataType: double
+		lineageTag: d3e4f5a6-0104-0104-0104-000000000104
+		summarizeBy: sum
+		sourceColumn: Conversions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conv_Value
+		dataType: double
+		lineageTag: d3e4f5a6-0105-0105-0105-000000000105
+		summarizeBy: sum
+		sourceColumn: Conv_Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column All_Conversions
+		dataType: double
+		lineageTag: d3e4f5a6-0106-0106-0106-000000000106
+		summarizeBy: sum
+		sourceColumn: All_Conversions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Month
+		dataType: string
+		lineageTag: d3e4f5a6-0107-0107-0107-000000000107
+		summarizeBy: none
+		sourceColumn: Year_Month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ads_Conversions = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\ADMIN\Desktop\Code\Báo Cáo Ads\GoogleAds_Conversions_20260429.xlsx"), null, true),
+				    Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+				    #"Selected Columns" = Table.SelectColumns(#"Promoted Headers",{"Date","Conversion_Action","Device","Conversions","Conv_Value","All_Conversions","Year_Month"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Selected Columns",{
+				        {"Date", type date},
+				        {"Conversions", type number},
+				        {"Conv_Value", type number},
+				        {"All_Conversions", type number}
+				    })
+				in
+				    #"Changed Type"
+

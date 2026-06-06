@@ -1,0 +1,315 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "chi-tiet-ecom-2026-tableEx-49de95",
+  "position": {
+    "x": 32,
+    "y": 1960,
+    "z": 2000,
+    "height": 304,
+    "width": 1230,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "Date"
+                }
+              },
+              "queryRef": "Ads_Daily.Date",
+              "nativeQueryRef": "Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "Device"
+                }
+              },
+              "queryRef": "Ads_Daily.Device",
+              "nativeQueryRef": "Device"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "Ads Cost"
+                }
+              },
+              "queryRef": "Ads_Daily.Ads Cost",
+              "nativeQueryRef": "Ads Cost"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "Ads Clicks"
+                }
+              },
+              "queryRef": "Ads_Daily.Ads Clicks",
+              "nativeQueryRef": "Ads Clicks"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "Ads Impressions"
+                }
+              },
+              "queryRef": "Ads_Daily.Ads Impressions",
+              "nativeQueryRef": "Ads Impressions"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "CTR"
+                }
+              },
+              "queryRef": "Ads_Daily.CTR",
+              "nativeQueryRef": "CTR"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "Avg CPC"
+                }
+              },
+              "queryRef": "Ads_Daily.Avg CPC",
+              "nativeQueryRef": "Avg CPC"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "Ads Conversions"
+                }
+              },
+              "queryRef": "Ads_Daily.Ads Conversions",
+              "nativeQueryRef": "Ads Conversions"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Daily"
+                    }
+                  },
+                  "Property": "CPA"
+                }
+              },
+              "queryRef": "Ads_Daily.CPA",
+              "nativeQueryRef": "CPA"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Chi Tiet Ecom 2026'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ec45466b9070d39d1777",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "Date"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3c44c310da01ba1ad1b6",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "Device"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f4d05d06ea2279a0dc9a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "Ads Cost"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e78056f0a9c08d71dc18",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "Ads Clicks"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a165ad85012ab8088940",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "Ads Impressions"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fab49e1960cea0a28452",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "CTR"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c301f413e9381224bd9b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "Avg CPC"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "27cdfb9c82cb037e00da",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "Ads Conversions"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d9150bb035d0b65e77be",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Daily"
+              }
+            },
+            "Property": "CPA"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

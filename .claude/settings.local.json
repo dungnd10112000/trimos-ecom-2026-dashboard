@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__powerbi-modeling-mcp__table_operations",
+      "Bash(pbir connect *)",
+      "Bash(pbir pages *)",
+      "Bash(pbir tree *)",
+      "Bash(pbir visuals *)",
+      "Bash(pbir add *)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('width:', d.get\\('width'\\), 'height:', d.get\\('height'\\)\\)\")",
+      "Bash(pbir validate *)",
+      "Bash(pbir open *)",
+      "Bash(python -c ' *)",
+      "Bash(start GA4_Events_Report.pbip)"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+relationship b58ef861-a966-4363-9c13-0152cf4ebdda
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Ads_Daily.Date
+	toColumn: LocalDateTable_2b6dc807-3d76-4559-b376-ee2affe0022d.Date
+
+relationship 6a086e97-3088-4a42-8a09-3a6d1f579ac4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Ads_Network.Date
+	toColumn: LocalDateTable_e59e5f47-a9c8-4d5f-adba-305b8f04f289.Date
+
+relationship 3d081be4-26f4-4405-bb30-a0c3e67f4b2f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: All_Events.Date
+	toColumn: LocalDateTable_1f302907-3dcd-4866-88c0-c9db843457d0.Date
+
+relationship 064f5f00-4e21-4954-ba20-8ff0bf783c75
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Ads_Conversions.Date
+	toColumn: LocalDateTable_ddb3f5c9-91c9-4867-bc50-ca2fc670e1be.Date
+

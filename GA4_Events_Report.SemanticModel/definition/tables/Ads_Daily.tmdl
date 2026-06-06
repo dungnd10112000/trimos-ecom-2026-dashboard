@@ -1,0 +1,134 @@
+table Ads_Daily
+	lineageTag: b1c2d3e4-0001-0001-0001-000000000001
+
+	measure 'Ads Cost' = SUM('Ads_Daily'[Cost])
+		formatString: #,0
+		displayFolder: Ads Metrics
+		lineageTag: b1c2d3e4-0010-0010-0010-000000000010
+
+	measure 'Ads Clicks' = SUM('Ads_Daily'[Clicks])
+		formatString: #,0
+		displayFolder: Ads Metrics
+		lineageTag: b1c2d3e4-0011-0011-0011-000000000011
+
+	measure 'Ads Impressions' = SUM('Ads_Daily'[Impressions])
+		formatString: #,0
+		displayFolder: Ads Metrics
+		lineageTag: b1c2d3e4-0012-0012-0012-000000000012
+
+	measure 'Avg CPC' = DIVIDE([Ads Cost], [Ads Clicks])
+		formatString: #,0
+		displayFolder: Ads Metrics
+		lineageTag: b1c2d3e4-0013-0013-0013-000000000013
+
+	measure 'Ads Conversions' = SUM('Ads_Daily'[Conversions])
+		formatString: #,0.0
+		displayFolder: Ads Metrics
+		lineageTag: b1c2d3e4-0014-0014-0014-000000000014
+
+	measure CPA = DIVIDE([Ads Cost], [Ads Conversions])
+		formatString: #,0
+		displayFolder: Ads Metrics
+		lineageTag: b1c2d3e4-0015-0015-0015-000000000015
+
+	measure CTR = DIVIDE([Ads Clicks], [Ads Impressions])
+		formatString: 0.00%
+		displayFolder: Ads Metrics
+		lineageTag: b1c2d3e4-0016-0016-0016-000000000016
+
+	measure CPM = DIVIDE([Ads Cost], [Ads Impressions]) * 1000
+		formatString: #,0
+		displayFolder: Ads Metrics
+		lineageTag: b1c2d3e4-0017-0017-0017-000000000017
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b1c2d3e4-0101-0101-0101-000000000101
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: b58ef861-a966-4363-9c13-0152cf4ebdda
+			defaultHierarchy: LocalDateTable_2b6dc807-3d76-4559-b376-ee2affe0022d.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Device
+		dataType: string
+		lineageTag: b1c2d3e4-0102-0102-0102-000000000102
+		summarizeBy: none
+		sourceColumn: Device
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cost
+		dataType: double
+		lineageTag: b1c2d3e4-0103-0103-0103-000000000103
+		summarizeBy: sum
+		sourceColumn: Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column Clicks
+		dataType: double
+		lineageTag: b1c2d3e4-0104-0104-0104-000000000104
+		summarizeBy: sum
+		sourceColumn: Clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column Impressions
+		dataType: double
+		lineageTag: b1c2d3e4-0105-0105-0105-000000000105
+		summarizeBy: sum
+		sourceColumn: Impressions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avg_CPC
+		dataType: double
+		lineageTag: b1c2d3e4-0107-0107-0107-000000000107
+		summarizeBy: sum
+		sourceColumn: Avg_CPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conversions
+		dataType: double
+		lineageTag: b1c2d3e4-0109-0109-0109-000000000109
+		summarizeBy: sum
+		sourceColumn: Conversions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Month
+		dataType: string
+		lineageTag: b1c2d3e4-0111-0111-0111-000000000111
+		summarizeBy: none
+		sourceColumn: Year_Month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ads_Daily = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\ADMIN\Desktop\Code\Báo Cáo Ads\GoogleAds_Ecom2026_20260429.xlsx"), null, true),
+				    Sheet = Source{[Item="Daily_Device",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+				    #"Removed Columns" = Table.SelectColumns(#"Promoted Headers",{"Date","Device","Cost","Clicks","Impressions","Avg_CPC","Conversions","Year_Month"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{
+				        {"Date", type date},
+				        {"Cost", type number},
+				        {"Clicks", type number},
+				        {"Impressions", type number},
+				        {"Avg_CPC", type number},
+				        {"Conversions", type number}
+				    })
+				in
+				    #"Changed Type"
+

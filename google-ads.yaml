@@ -1,0 +1,2 @@
+client:
+  use_proto_plus: true

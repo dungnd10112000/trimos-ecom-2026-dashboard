@@ -1,0 +1,142 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "google-ads-conversions-by-even-tableEx-32b62a",
+  "position": {
+    "x": 24,
+    "y": 1517.5,
+    "z": 0,
+    "height": 368.75,
+    "width": 608,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pieChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Conversions"
+                    }
+                  },
+                  "Property": "Conversion_Action"
+                }
+              },
+              "queryRef": "Ads_Conversions.Conversion_Action",
+              "nativeQueryRef": "Conversion_Action",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Conversions"
+                    }
+                  },
+                  "Property": "Ads Conv Total"
+                }
+              },
+              "queryRef": "Ads_Conversions.Ads Conv Total",
+              "nativeQueryRef": "Ads Conv Total"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Ads_Conversions"
+                  }
+                },
+                "Property": "Ads Conv Total"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Google Ads Conversions by Event'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d4aa06b8162cea70998a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Conversions"
+              }
+            },
+            "Property": "Conversion_Action"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "7b55264220d81da32800",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Conversions"
+              }
+            },
+            "Property": "Ads Conv Total"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

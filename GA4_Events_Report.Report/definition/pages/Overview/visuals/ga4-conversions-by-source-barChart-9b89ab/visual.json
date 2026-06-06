@@ -1,0 +1,110 @@
+{
+  "name": "ga4-conversions-by-source-barChart-9b89ab",
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Conversions_By_Source"
+                    }
+                  },
+                  "Property": "Source_Medium"
+                }
+              },
+              "queryRef": "Conversions_By_Source.Source_Medium",
+              "nativeQueryRef": "Source_Medium"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Conversions_By_Source"
+                    }
+                  },
+                  "Property": "GA4 Conversions"
+                }
+              },
+              "queryRef": "Conversions_By_Source.GA4 Conversions",
+              "nativeQueryRef": "GA4 Conversions"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Conversions_By_Source"
+                  }
+                },
+                "Property": "GA4 Conversions"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Conversions by Source / Medium'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 648,
+    "y": 1518,
+    "z": 0,
+    "width": 608,
+    "height": 368,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json"
+}

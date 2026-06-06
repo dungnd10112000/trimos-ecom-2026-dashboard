@@ -1,0 +1,227 @@
+table All_Events
+	lineageTag: 4175bc1e-5e39-4a63-b950-3a38391443fe
+
+	measure 'Total Events' = SUM('All_Events'[Event_Count])
+		formatString: #,0
+		displayFolder: Events
+		lineageTag: 2edb54f3-dbc4-4bbe-86fb-d5e7ca0cbdd4
+
+	measure 'Paid Events' = CALCULATE(SUM('All_Events'[Event_Count]), 'All_Events'[Traffic_Type] = "Paid")
+		formatString: #,0
+		displayFolder: Events
+		lineageTag: eaed7611-9445-4c9c-85ec-3edf27ec40e6
+
+	measure 'Organic Events' = CALCULATE(SUM('All_Events'[Event_Count]), 'All_Events'[Traffic_Type] = "Organic")
+		formatString: #,0
+		displayFolder: Events
+		lineageTag: 6056f948-7512-4189-8a54-d3082fe3c3c8
+
+	measure 'Direct Events' = CALCULATE(SUM('All_Events'[Event_Count]), 'All_Events'[Traffic_Type] = "Direct")
+		formatString: #,0
+		displayFolder: Events
+		lineageTag: 63bfc778-ec4c-45f9-945a-ca117ad6e7c3
+
+	measure 'Other Events' = CALCULATE(SUM('All_Events'[Event_Count]), 'All_Events'[Traffic_Type] = "Other")
+		formatString: #,0
+		displayFolder: Events
+		lineageTag: 1f437919-6cea-47ae-a631-dda511d84e99
+
+	measure 'Total Sessions' = SUM('All_Events'[Sessions])
+		formatString: #,0
+		displayFolder: Sessions
+		lineageTag: 78d5535f-51bf-4eae-825f-ebd3d9889278
+
+	measure 'Total Users' = SUM('All_Events'[Total_Users])
+		formatString: #,0
+		displayFolder: Sessions
+		lineageTag: db9aa0cc-1a52-48a5-bc60-b4d9ecae81c1
+
+	measure 'Total Conversions' = SUM('All_Events'[Conversions])
+		formatString: #,0
+		displayFolder: Conversions
+		lineageTag: 209d20dd-59e4-474f-96a7-521dcca8f8ee
+
+	measure 'Conversion Rate' = DIVIDE([Total Conversions], [Total Sessions])
+		formatString: 0.00%
+		displayFolder: Conversions
+		lineageTag: 99304a32-2679-482f-b6f3-37b2b63507b1
+
+	measure 'Events per Session' = DIVIDE([Total Events], [Total Sessions])
+		formatString: 0.0
+		displayFolder: Events
+		lineageTag: bb98eeae-fc68-4443-a714-c7f1c500926d
+
+	measure 'New Visitors' = CALCULATE(SUM('All_Events'[Event_Count]), 'All_Events'[Event_Name] = "first_visit")
+		formatString: #,0
+		displayFolder: Events
+		lineageTag: a1b2c3d4-0001-0001-0001-000000000001
+
+	measure 'Form Starts' = CALCULATE(SUM('All_Events'[Event_Count]), 'All_Events'[Event_Name] = "form_start")
+		formatString: #,0
+		displayFolder: Lead Funnel
+		lineageTag: a1b2c3d4-0002-0002-0002-000000000002
+
+	measure 'Form Submits' = CALCULATE(SUM('All_Events'[Event_Count]), 'All_Events'[Event_Name] IN {"form_submit", "form_submit_products", "form_submit_top"})
+		formatString: #,0
+		displayFolder: Lead Funnel
+		lineageTag: a1b2c3d4-0003-0003-0003-000000000003
+
+	measure 'Form Submit Rate' = DIVIDE([Form Submits], [Form Starts])
+		formatString: 0.0%
+		displayFolder: Lead Funnel
+		lineageTag: a1b2c3d4-0004-0004-0004-000000000004
+
+	measure 'Form Abandonment' = [Form Starts] - [Form Submits]
+		formatString: #,0
+		displayFolder: Lead Funnel
+		lineageTag: a1b2c3d4-0005-0005-0005-000000000005
+
+	measure 'Social Clicks' = CALCULATE(SUM('All_Events'[Event_Count]), 'All_Events'[Event_Name] IN {"click_btn_facebook", "click_btn_instagramGA4 - Conversion", "click_btn_linkedin", "click_btn_youtube", "click_btn_zalo"})
+		formatString: #,0
+		displayFolder: Engagement
+		lineageTag: a1b2c3d4-0006-0006-0006-000000000006
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 00ef28e5-b43d-46dd-9900-6f0bf44edeb0
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 3d081be4-26f4-4405-bb30-a0c3e67f4b2f
+			defaultHierarchy: LocalDateTable_1f302907-3dcd-4866-88c0-c9db843457d0.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Event_Name
+		dataType: string
+		lineageTag: 7b08d30e-d8e0-442c-9529-09e660f2464e
+		summarizeBy: none
+		sourceColumn: Event_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel_Group
+		dataType: string
+		lineageTag: 6a2bc1b3-8a73-4562-a402-8f25c215232e
+		summarizeBy: none
+		sourceColumn: Channel_Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source_Medium
+		dataType: string
+		lineageTag: 6632e869-0b58-456c-8ef1-bb78feae7774
+		summarizeBy: none
+		sourceColumn: Source_Medium
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source
+		dataType: string
+		lineageTag: 3d5c1fcf-9f95-466e-bdf3-353978d8d7e4
+		summarizeBy: none
+		sourceColumn: Source
+
+		annotation SummarizationSetBy = Automatic
+
+	column Medium
+		dataType: string
+		lineageTag: 88ee0354-591e-489c-9e2c-761201c5b450
+		summarizeBy: none
+		sourceColumn: Medium
+
+		annotation SummarizationSetBy = Automatic
+
+	column Device
+		dataType: string
+		lineageTag: a0e902e6-7697-459b-8e92-42179a67d11c
+		summarizeBy: none
+		sourceColumn: Device
+
+		annotation SummarizationSetBy = Automatic
+
+	column Event_Count
+		dataType: double
+		lineageTag: 3106c84d-f64b-4e6e-b4c2-9cae1db45dfa
+		summarizeBy: sum
+		sourceColumn: Event_Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conversions
+		dataType: double
+		lineageTag: 995feb55-c23e-47ab-818d-0a5c3e386a1f
+		summarizeBy: sum
+		sourceColumn: Conversions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Users
+		dataType: double
+		lineageTag: 4cced0e7-d407-4c3b-89a9-a8e4c754c89b
+		summarizeBy: sum
+		sourceColumn: Total_Users
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sessions
+		dataType: double
+		lineageTag: e2546aa3-fb99-4da8-9219-75cdb90eaa2d
+		summarizeBy: sum
+		sourceColumn: Sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Traffic_Type
+		dataType: string
+		lineageTag: aa12d341-5798-48c8-931c-b43fe8860e40
+		summarizeBy: none
+		sourceColumn: Traffic_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Month
+		dataType: string
+		lineageTag: 81ad24c4-76ee-4ce8-8495-3d7111cee116
+		summarizeBy: none
+		sourceColumn: Year_Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Week
+		dataType: string
+		lineageTag: 4f122da7-bcd2-4597-849f-20aa2c1eaa9c
+		summarizeBy: none
+		sourceColumn: Year_Week
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_Events = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\ADMIN\Desktop\Code\Báo Cáo Ads\GA4_Leads_20260429.xlsx"), null, true),
+				    Sheet = Source{[Item="All_Events",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{
+				        {"Date", type date},
+				        {"Event_Count", type number},
+				        {"Conversions", type number},
+				        {"Total_Users", type number},
+				        {"Sessions", type number}
+				    }),
+				    #"Target Events" = {
+				        "click_btn_facebook", "click_btn_instagramGA4 - Conversion",
+				        "click_btn_linkedin", "click_btn_youtube", "click_btn_zalo",
+				        "file_download", "first_visit", "form_start",
+				        "form_submit", "form_submit_products", "form_submit_top"
+				    },
+				    #"Filtered Events" = Table.SelectRows(#"Changed Type", each List.Contains(#"Target Events", [Event_Name]))
+				in
+				    #"Filtered Events"
+

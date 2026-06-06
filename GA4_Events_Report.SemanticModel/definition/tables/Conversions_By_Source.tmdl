@@ -1,0 +1,138 @@
+table Conversions_By_Source
+	lineageTag: 530da1e7-4127-4914-951d-93a7329b835b
+
+	measure 'GA4 Conversions' = SUM('Conversions_By_Source'[Conversions])
+		formatString: #,0
+		lineageTag: e4f5a6b7-0010-0010-0010-000000000010
+
+	measure 'GA4 Sessions' = SUM('Conversions_By_Source'[Sessions])
+		formatString: #,0
+		lineageTag: e4f5a6b7-0011-0011-0011-000000000011
+
+	measure 'GA4 Conv Rate' = DIVIDE([GA4 Conversions], [GA4 Sessions])
+		formatString: 0.00%
+		lineageTag: e4f5a6b7-0012-0012-0012-000000000012
+
+	column Date
+		dataType: dateTime
+		lineageTag: f7892782-499c-48bd-8687-7be1c6b03ccd
+		sourceColumn: Date
+
+	column Channel_Group
+		dataType: string
+		lineageTag: 44f747c2-a467-4b4c-a2ed-2fa49ee81551
+		sourceColumn: Channel_Group
+
+	column Source_Medium
+		dataType: string
+		lineageTag: dae82778-8b8e-4011-b2e9-078c42483833
+		sourceColumn: Source_Medium
+
+	column Source
+		dataType: string
+		lineageTag: 4d92e153-a0f7-4498-b4d4-632d4149f155
+		sourceColumn: Source
+
+	column Medium
+		dataType: string
+		lineageTag: 117bccc2-ba46-4829-a3d3-7aa8576a84ce
+		sourceColumn: Medium
+
+	column Campaign
+		dataType: string
+		lineageTag: 5b43947b-30bb-40e4-8439-e65274a6aa68
+		sourceColumn: Campaign
+
+	column Device
+		dataType: string
+		lineageTag: 4f6d0177-fb41-4ce6-8d74-52fa767ba4e0
+		sourceColumn: Device
+
+	column Conversions
+		dataType: double
+		lineageTag: 84ee9dac-38b1-41d6-8ee8-98f1d94300bb
+		sourceColumn: Conversions
+
+	column Sessions
+		dataType: double
+		lineageTag: fe64ca7e-2b40-411f-b582-2b749cfcac87
+		sourceColumn: Sessions
+
+	column Total_Users
+		dataType: double
+		lineageTag: 5f19bc2f-96a1-4a4f-88de-850a87469bde
+		sourceColumn: Total_Users
+
+	column New_Users
+		dataType: double
+		lineageTag: dbf91e25-780d-48b2-af21-a4d5673e2120
+		sourceColumn: New_Users
+
+	column Engaged_Sessions
+		dataType: double
+		lineageTag: b2c893b5-d6de-431c-b943-7e2681cf891d
+		sourceColumn: Engaged_Sessions
+
+	column Bounce_Rate
+		dataType: double
+		lineageTag: a737ad98-f504-4125-bd08-3cdb6a09ede9
+		sourceColumn: Bounce_Rate
+
+	column Avg_Session_Sec
+		dataType: double
+		lineageTag: 9a84aa63-eba5-4cb2-837b-5a736a651814
+		sourceColumn: Avg_Session_Sec
+
+	column Pages_Per_Session
+		dataType: double
+		lineageTag: e63098bc-b7cc-40c4-8c27-5e47a9e261f5
+		sourceColumn: Pages_Per_Session
+
+	column Conversion_Rate
+		dataType: double
+		lineageTag: 443f2614-7adc-4930-ab72-e5dbd4f2b1c0
+		sourceColumn: Conversion_Rate
+
+	column Avg_Session_Min
+		dataType: double
+		lineageTag: 300273e6-b5d8-4c63-9ff6-a9b9d155454e
+		sourceColumn: Avg_Session_Min
+
+	column Traffic_Type
+		dataType: string
+		lineageTag: 8df54048-d16b-4039-829c-a6c1d8edcd7a
+		sourceColumn: Traffic_Type
+
+	column Year_Month
+		dataType: string
+		lineageTag: 1cb7684e-9d0b-4fd0-9f61-c84bfdc181e7
+		sourceColumn: Year_Month
+
+	column Year_Week
+		dataType: string
+		lineageTag: 8f9079c6-82ce-4f20-8f54-5dacf27366da
+		sourceColumn: Year_Week
+
+	partition Conversions_By_Source = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\ADMIN\Desktop\Code\Báo Cáo Ads\GA4_Leads_20260429.xlsx"), null, true),
+				    Sheet = Source{[Item="Conversions_By_Source",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{
+				        {"Date", type date},
+				        {"Conversions", type number},
+				        {"Sessions", type number},
+				        {"Total_Users", type number},
+				        {"New_Users", type number},
+				        {"Engaged_Sessions", type number},
+				        {"Bounce_Rate", type number},
+				        {"Avg_Session_Sec", type number},
+				        {"Pages_Per_Session", type number},
+				        {"Conversion_Rate", type number},
+				        {"Avg_Session_Min", type number}
+				    })
+				in
+				    #"Changed Type"
+

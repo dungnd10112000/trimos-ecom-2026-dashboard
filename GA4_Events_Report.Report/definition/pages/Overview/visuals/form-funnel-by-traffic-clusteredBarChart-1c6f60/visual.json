@@ -1,0 +1,152 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "form-funnel-by-traffic-clusteredBarChart-1c6f60",
+  "position": {
+    "x": 31.666666666666668,
+    "y": 268.33333333333337,
+    "z": 8000,
+    "height": 395,
+    "width": 608.33333333333337,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Events"
+                    }
+                  },
+                  "Property": "Traffic_Type"
+                }
+              },
+              "queryRef": "All_Events.Traffic_Type",
+              "nativeQueryRef": "Traffic_Type",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Events"
+                    }
+                  },
+                  "Property": "Form Starts"
+                }
+              },
+              "queryRef": "All_Events.Form Starts",
+              "nativeQueryRef": "Form Starts"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Events"
+                    }
+                  },
+                  "Property": "Form Submits"
+                }
+              },
+              "queryRef": "All_Events.Form Submits",
+              "nativeQueryRef": "Form Submits"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Form Funnel by Traffic'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "99b66d97a56390a83822",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "All_Events"
+              }
+            },
+            "Property": "Traffic_Type"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4ff97cabe465461ae765",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "All_Events"
+              }
+            },
+            "Property": "Form Starts"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c0b8a606a23427b040c9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "All_Events"
+              }
+            },
+            "Property": "Form Submits"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

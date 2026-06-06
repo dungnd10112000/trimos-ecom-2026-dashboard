@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode"]
+
+annotation PBI_QueryOrder = ["All_Events","Conversions_By_Source","Ads_Daily","Ads_Network","Ads_Conversions"]
+
+ref table All_Events
+ref table Conversions_By_Source
+ref table Ads_Daily
+ref table Ads_Network
+ref table DateTableTemplate_e1b396ec-6345-4d21-89bd-15dfbb2f238a
+ref table LocalDateTable_2b6dc807-3d76-4559-b376-ee2affe0022d
+ref table LocalDateTable_e59e5f47-a9c8-4d5f-adba-305b8f04f289
+ref table LocalDateTable_1f302907-3dcd-4866-88c0-c9db843457d0
+ref table Ads_Conversions
+ref table LocalDateTable_ddb3f5c9-91c9-4867-bc50-ca2fc670e1be
+
+ref cultureInfo en-US
+

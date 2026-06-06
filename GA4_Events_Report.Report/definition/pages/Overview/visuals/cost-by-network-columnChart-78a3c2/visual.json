@@ -1,0 +1,142 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "cost-by-network-columnChart-78a3c2",
+  "position": {
+    "x": 28.154761904761912,
+    "y": 1186.2802609799903,
+    "z": 4000,
+    "height": 298.57142857142861,
+    "width": 608.57142857142856,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Network"
+                    }
+                  },
+                  "Property": "Network"
+                }
+              },
+              "queryRef": "Ads_Network.Network",
+              "nativeQueryRef": "Network",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ads_Network"
+                    }
+                  },
+                  "Property": "Network Cost"
+                }
+              },
+              "queryRef": "Ads_Network.Network Cost",
+              "nativeQueryRef": "Network Cost"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Ads_Network"
+                  }
+                },
+                "Property": "Network Cost"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cost by Network'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c5c63aa75ababd675885",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Network"
+              }
+            },
+            "Property": "Network"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "039771ec7a5aca2429c2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ads_Network"
+              }
+            },
+            "Property": "Network Cost"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
