@@ -284,7 +284,7 @@
         /* Dashboard Grid Layout (Left, Center, Right) */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 240px 1fr 340px;
+            grid-template-columns: 260px 1fr;
             gap: 20px;
             margin-bottom: 24px;
         }
@@ -1051,7 +1051,7 @@
                             <div class="funnel-stages-col" id="pageViewFunnelStages">
                                 <div class="funnel-stage-node" style="border-color: var(--accent-blue);">
                                     <span class="node-label">Page View</span>
-                                    <span class="node-value" id="node-pv">52.7K</span>
+                                    <span class="node-value" id="node-pv">53.044</span>
                                     <span class="node-pct">100%</span>
                                 </div>
                                 <div class="funnel-stage-node" style="border-color: var(--accent-rose);">
@@ -1094,7 +1094,7 @@
                         <div class="horiz-funnel-stages" id="pageViewStages">
                             <div class="horiz-stage-box">
                                 <div class="stage-lbl">Page View</div>
-                                <div class="stage-val">52.7K</div>
+                                <div class="stage-val">53.044</div>
                                 <div class="stage-pct">100%</div>
                             </div>
                             <div class="horiz-stage-box">
@@ -1117,109 +1117,7 @@
                 </div>
             </div>
 
-            <!-- RIGHT Column: Key Metrics + Conversion Rates -->
-            <div class="right-column">
-                <!-- KEY METRICS KPI cards -->
-                <div class="panel">
-                    <div class="panel-title">
-                        <span>Chỉ Số Trọng Yếu</span>
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
-                    <div class="kpi-metric-list">
-                        <div class="kpi-row">
-                            <span>Hiển Thị (Impr.)</span>
-                            <strong id="kpi-impr" style="color: var(--accent-blue);">481K</strong>
-                        </div>
-                        <div class="kpi-row">
-                            <span>Lượt Click</span>
-                            <strong id="kpi-clicks" style="color: var(--accent-purple);">52.9K</strong>
-                        </div>
-                        <div class="kpi-row">
-                            <span>Chuyển Đổi (Conv)</span>
-                            <strong id="kpi-conv" style="color: var(--accent-green);">39.3K</strong>
-                        </div>
-                        <div class="kpi-row">
-                            <span>Chi Phí (Cost)</span>
-                            <strong id="kpi-cost" style="color: var(--accent-rose);">5.45M</strong>
-                        </div>
-                        <div class="kpi-row">
-                            <span>CPA (Cost/Conv)</span>
-                            <strong id="kpi-cpc" style="color: var(--accent-amber);">138 VND</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CONVERSION RATES indicators -->
-                <div class="panel">
-                    <div class="panel-title">
-                        <span>Tỷ Lệ Chuyển Đổi</span>
-                        <i class="fa-solid fa-percent"></i>
-                    </div>
-                    <div class="c-rate-list" id="conversionRatesRight">
-                        <!-- Rendered by JS -->
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <!-- SECTION: Form Conversion Seminar Funnel -->
-        <section class="panel" style="margin-bottom: 24px;">
-            <div class="section-title">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span>Phễu Chuyển Đổi Biểu Mẫu Đăng Ký Hội Thảo (Seminar)</span>
-            </div>
-            
-            <div class="funnel-steps-horizontal">
-                <!-- Form Start -->
-                <div class="horiz-funnel-step step-primary">
-                    <div class="step-title">📝 Form Start</div>
-                    <div class="step-value blue">30.91</div>
-                    <div class="step-pct">100% Gốc</div>
-                </div>
-
-                <!-- Drop -->
-                <div class="funnel-arrow-drop">
-                    <div class="arrow-icon">→</div>
-                    <div class="drop-badge">−21.91 (70.9% drop)</div>
-                </div>
-
-                <!-- Form Submit -->
-                <div class="horiz-funnel-step step-warning">
-                    <div class="step-title">✏️ Form Submit</div>
-                    <div class="step-value amber">9.00</div>
-                    <div class="step-pct">29.1% từ Start</div>
-                </div>
-
-                <!-- Drop -->
-                <div class="funnel-arrow-drop">
-                    <div class="arrow-icon">→</div>
-                    <div class="drop-badge">−8.00 (88.9% drop)</div>
-                </div>
-
-                <!-- Form Finalize -->
-                <div class="horiz-funnel-step step-success">
-                    <div class="step-title">✅ Form Finalize</div>
-                    <div class="step-value green">1.00</div>
-                    <div class="step-pct">3.2% từ Start</div>
-                </div>
-            </div>
-
-            <!-- Funnel Summary statistics bar -->
-            <div class="funnel-summary-grid">
-                <div class="summary-card">
-                    <div class="sum-lbl">Tổng Form Starts</div>
-                    <div class="sum-val" style="color: var(--accent-blue);">30.91</div>
-                </div>
-                <div class="summary-card" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border);">
-                    <div class="sum-lbl">Tỷ Lệ Hoàn Thành</div>
-                    <div class="sum-val" style="color: var(--accent-rose);">3.2%</div>
-                </div>
-                <div class="summary-card">
-                    <div class="sum-lbl">Điểm Rơi Lớn Nhất</div>
-                    <div class="sum-val" style="color: var(--accent-amber);">Start → Submit</div>
-                </div>
-            </div>
-        </section>
 
         <!-- Charts: Device & Channel Doughnut/Bar charts -->
         <section class="grid-chart-row">
@@ -1480,37 +1378,18 @@
                     </div>
                     <div class="source-info">
                         <div class="source-name">${src.name}</div>
-                        <div class="source-count">${src.pageView.toLocaleString()} PV</div>
+                        <div class="source-count">${src.pageView.toLocaleString('vi-VN')} lượt xem trang</div>
                     </div>
                 </div>
             `).join('')}
         `;
         document.getElementById('sourcesList').innerHTML = sourcesListHTML;
 
-        // ── RENDER CONVERSION RATES (RIGHT COLUMN) ──────────────────────────────────────────
-        const convRatesHTML = `
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div class="c-rate-card" style="border-left-color: var(--accent-blue);">
-                    <div class="c-rate-lbl">PV → Form Start</div>
-                    <div class="c-rate-val" style="color: var(--accent-blue);">0.15%</div>
-                </div>
-                <div class="c-rate-card" style="border-left-color: var(--accent-rose);">
-                    <div class="c-rate-lbl">Start → Submit</div>
-                    <div class="c-rate-val" style="color: var(--accent-rose);">34.6%</div>
-                </div>
-                <div class="c-rate-card" style="border-left-color: var(--accent-green);">
-                    <div class="c-rate-lbl">Submit → Finalize</div>
-                    <div class="c-rate-val" style="color: var(--accent-green);">3.7%</div>
-                </div>
-            </div>
-        `;
-        document.getElementById('conversionRatesRight').innerHTML = convRatesHTML;
-
         // Render source cards inside the center flow diagram
         const sourceCardsHtml = gaSourceData.map(src => `
             <div class="funnel-src-card" style="border-left: 3px solid ${src.color};">
                 <div class="src-title">${src.name}</div>
-                <div class="src-val" style="color: ${src.color};">${(src.pageView/1000).toFixed(1)}K</div>
+                <div class="src-val" style="color: ${src.color};">${src.pageView.toLocaleString('vi-VN')}</div>
                 <div class="src-pct">${((src.pageView/totalPageView)*100).toFixed(1)}%</div>
             </div>
         `).join('');
@@ -1956,15 +1835,6 @@
             // Update Labels
             document.getElementById('rangeLabel').textContent = from.slice(5) + ' → ' + to.slice(5);
             document.getElementById('convLabel').textContent  = totalConv.toLocaleString() + ' conversions';
-
-            // Update KPI Box Values
-            document.getElementById('kpi-conv').textContent = (totalConv / 1000).toFixed(1) + 'K';
-            document.getElementById('kpi-cost').textContent = (totalCost / 1000000).toFixed(2) + 'M';
-            document.getElementById('kpi-clicks').textContent = (totalClicks / 1000).toFixed(1) + 'K';
-            document.getElementById('kpi-impr').textContent = (totalImpr / 1000).toFixed(0) + 'K';
-
-            const cpc = totalConv > 0 ? Math.round(totalCost / totalConv) : 0;
-            document.getElementById('kpi-cpc').textContent = cpc.toLocaleString() + ' VND';
 
             // Proportional scaling for Device & Channel charts
             const total30dConv = 39351;
