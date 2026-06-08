@@ -983,27 +983,6 @@
             </div>
         </div>
 
-        <!-- Date Range Filter -->
-        <div class="controls-group">
-            <div class="segment-control">
-                <button onclick="setRange(7)" id="btn7" class="range-btn">7 ngày</button>
-                <button onclick="setRange(14)" id="btn14" class="range-btn active">14 ngày</button>
-                <button onclick="setRange(30)" id="btn30" class="range-btn">30 ngày</button>
-            </div>
-            
-            <div class="date-picker-group">
-                <input type="date" id="dateFrom" value="2026-05-23">
-                <span style="color: var(--text-muted); font-size: 12px;">→</span>
-                <input type="date" id="dateTo" value="2026-06-05">
-            </div>
-            
-            <button onclick="applyCustomRange()" class="apply-btn">Áp dụng</button>
-        </div>
-
-        <div class="topbar__meta">
-            <span class="pill" id="rangeLabel">14 ngày</span>
-            <span class="pill pill--blue" id="convLabel">39,351 conversions</span>
-        </div>
     </header>
 
     <!-- Main Content wrapper -->
@@ -1707,31 +1686,15 @@
             d.impr = d.impr || Math.round(d.clicks * 9.08);
         });
 
-        function setRange(days) {
-            document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn' + days).classList.add('active');
+        function renderRange(days) {
             const to = new Date('2026-06-05');
-            const from = new Date(to);
-            from.setDate(from.getDate() - days + 1);
-            document.getElementById('dateFrom').value = from.toISOString().slice(0, 10);
-            document.getElementById('dateTo').value   = to.toISOString().slice(0, 10);
-            applyCustomRange();
-        }
-
-        function applyCustomRange() {
-            document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
-            const from = document.getElementById('dateFrom').value;
-            const to   = document.getElementById('dateTo').value;
-            const filtered = dailyData.filter(d => d.date >= from && d.date <= to);
+            const fromD = new Date(to);
+            fromD.setDate(fromD.getDate() - days + 1);
+            const from = fromD.toISOString().slice(0, 10);
+            const toStr = to.toISOString().slice(0, 10);
+            const filtered = dailyData.filter(d => d.date >= from && d.date <= toStr);
 
             const totalConv = filtered.reduce((s, d) => s + d.conv, 0);
-            const totalCost = filtered.reduce((s, d) => s + d.cost, 0);
-            const totalClicks = filtered.reduce((s, d) => s + d.clicks, 0);
-            const totalImpr = filtered.reduce((s, d) => s + d.impr, 0);
-
-            // Update Labels
-            document.getElementById('rangeLabel').textContent = from.slice(5) + ' → ' + to.slice(5);
-            document.getElementById('convLabel').textContent  = totalConv.toLocaleString() + ' conversions';
 
             // Proportional scaling for Device & Channel charts
             const total30dConv = 39351;
@@ -1773,9 +1736,9 @@
             setTimeout(drawAllSvgs, 50);
         }
 
-        // Run default filter initialization (14 Days)
+        // Render default range (14 Days)
         window.addEventListener('DOMContentLoaded', () => {
-            setRange(14);
+            renderRange(14);
         });
     </script>
 </body>
